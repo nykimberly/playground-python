@@ -20,10 +20,12 @@ class Solution(object):
                 # if sum is greater than complement, increment higher val back
                 elif s > comp:
                     end -= 1
+                # if sum == comp, then add to our soln set and increment vals
                 else:
                     solns.add((lst[end], lst[i], lst[j]))
                     j += 1
                     end -= 1
+        # now convert our soln set to lists as desired by checkpoint
         solns = list(solns)
         for i in range(len(solns)):
             solns[i] = list(solns[i])
