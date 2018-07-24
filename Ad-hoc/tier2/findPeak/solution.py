@@ -1,39 +1,36 @@
+"""
+A peak element is an element that is greater than its neighbors.
+
+Given an input array nums, where nums[i] ≠ nums[i+1], find a peak element and return its index.
+
+The array may contain multiple peaks, in that case return the index to any one of the peaks is fine.
+
+You may imagine that nums[-1] = nums[n] = -∞.
+"""
+
 class Solution(object):
-
-    # O(log(2, n) time)
+    
     def findPeakElement(self, nums):
-        # get some list properties to see if we can quickly solve w/o recursion
-        n = len(nums)
-        s = 0
-        e = n - 1
-        # case where list is empty
-        assert e >= s, "List cannot be empty"
-        # case where list is one element
-        if e == s:
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        start, end = 0, len(nums) - 1
+        # defensive coding
+        assert end >= start,"List cannot be empty"
+        # if solutions are quick, avoid recursion
+        if end == start:
             return 0
-        # case where list is two elements
-        elif e == s + 1:
-            return s if nums[s] >= nums[e] else e
-        # if list has more than two elements then we can recurse
+        elif end == start + 1:
+            return start if nums[start] >= nums[end] else end
         else:
-            return self.findPeakHelper(nums, s, e, n)
-
-    def findPeakHelper(self, l, s, e, n):
-        # calculate mid index
-        m = int(s + (e-s) / 2)
-        # base cases where m=0 or or n-1 is accounted for in the if statements
-        # solution must exist since we consider values outside l to be -inf
-        # case where m is peak
-        if ((m == 0 or l[m-1] < l[m]) and (m == n-1 or l[m+1] < l[m])):
-            print("first case")
+            return self.findPeakRecursively(nums, start, end, end)
+        
+    def findPeakRecursively(self, lst, s, e, n):
+        m = int(s + (e-s)/2)
+        if (m==0 or lst[m-1]<lst[m]) and (m==n or lst[m+1]<lst[m]):
             return m
-        # case where peak is to the left or m is at right boundary
-        elif (m > 0 and l[m-1] > l[m]):
-            print("second case")
-            return self.findPeakHelper(l, s, m, n)
-        # case where peak is to the right or m is at left boundary
-        elif (m < n-1 and l[m+1] > l[m]):
-            print("third case")
-            return self.findPeakHelper(l, m+1, e, n)
+        elif (m>0 and lst[m-1] > lst[m]):
+            return self.findPeakRecursively(lst, s, m, n)
         else:
-            return "Didn't account for this case"
+            return self.findPeakRecursively(lst, m+1, e, n)

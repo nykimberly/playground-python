@@ -1,3 +1,7 @@
+"""
+Given an array, rotate the array to the right by k steps, where k is non-negative.
+"""
+
 class Solution(object):
     # O(n) space solution
     """
@@ -21,9 +25,12 @@ class Solution(object):
     """
     # O(1) space solution
     def rotate(self, nums, k):
-        # length of list
-        n = len(nums)
-        # ensures k is within length of list
-        k = k % n
-        # partition list around k and swap first half with second half
-        nums[:] = nums[n-k:] + nums[:n-k]
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        end = len(nums)
+        k = k % end
+        nums[:] = nums[end-k:] + nums[:end-k]
+        

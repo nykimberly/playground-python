@@ -1,33 +1,33 @@
+"""
+Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
+
+Note:
+
+The number of elements initialized in nums1 and nums2 are m and n respectively.
+You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.
+"""
+
 class Solution(object):
     def merge(self, nums1, m, nums2, n):
-        # pointer for first list
+        """
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: void Do not return anything, modify nums1 in-place instead.
+        """
         i = 0
-        # pointer for second ist
         j = 0
-        # end value of merged list
-        end = m
-
-        while (i < end) & (j < n):
-            # if element in second list is less than element in first list
+        nonzero_end = m
+        while i < nonzero_end and j < n:
             if nums2[j] < nums1[i]:
-                # move rest of first list forward one
-                nums1[i+1:end+1] = nums1[i:end]
-                # and assign index to element of second list
-                nums1[i] = nums2[j]
-                # increment second list pointer
+                nums1[i:] = [nums2[j]] + nums1[i:nonzero_end]
+                nonzero_end += 1
                 j += 1
-                # increment end value of merged list
-                end += 1
-            # otherwise
             else:
-                # increment first list pointer
                 i += 1
-
-        # if only list2 elements are left, copy rest of list2 elements over
-        if (j < n):
-            nums1[i:] = nums2[j:]
-            end += (n-j)
-
-        # situation where only list 1 elements are left
-        # just return since elements are already on first list
+        # assign rest of nums2 to nums1 tail
+        if j < n:
+            nums1[nonzero_end:] = nums2[j:]
+            nonzero_end += n-j
         return

@@ -1,21 +1,17 @@
+"""
+Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+"""
 class Solution(object):
     def moveZeroes(self, nums):
         """
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        # initialize pointer
-        i = 0
-        # initialize variable 'end' of nonzero list
-        end = len(nums)
-        # while i is less than this end
-        while i < end:
-            # check if nums at i is zero
-            if nums[i] == 0:
-                # if it is, then concatenate zero to end of rest of list
-                nums[i:] = nums[i+1:] + [nums[i]]
-                # decrement end
-                end -= 1
+        curr = 0
+        nonzero_end = len(nums)
+        while curr < nonzero_end:
+            if nums[curr] == 0:
+                nums[curr:] = nums[curr+1:] + [nums[curr]]
+                nonzero_end -= 1
             else:
-                # if num at i is not zero, move to next val
-                i += 1
+                curr += 1

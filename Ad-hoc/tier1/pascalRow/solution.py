@@ -1,13 +1,21 @@
+"""
+Given a non-negative integer numRows, generate the first numRows of Pascal's triangle.
+In Pascal's triangle, each number is the sum of the two numbers directly above it.
+"""
+
 class Solution(object):
-    def getRow(rowIndex):
-        soln = [1]
-        for i in range(1, rowIndex + 1):
-            output = [1]
-            for j in range(1, i + 1):
-                if (j == i):
-                    val = 1
-                else:
-                    val = soln[i-1][j-1] + soln[i-1][j]
-                output.append(val)
-            soln.append(output)
-        return soln[rowIndex]
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        soln = []
+        for i in range(numRows): 
+            row = [1]
+            if i > 0:
+                if i > 1:
+                    for j in range(1, i):
+                        row.append(soln[i-1][j-1] + soln[i-1][j])
+                row.append(1)
+            soln.append(row)
+        return soln

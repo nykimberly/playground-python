@@ -1,23 +1,22 @@
-class Solution(object):
+"""
+Say you have an array for which the ith element is the price of a given stock on day i.
 
+If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+
+Note that you cannot sell a stock before you buy one.
+"""
+
+class Solution(object):
     def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
         runningMin = float("inf")
-        maxProfit = 0
-        for day, price in enumerate(prices):
+        currentMax = 0
+        for price in prices:
             if price < runningMin:
                 runningMin = price
-            if price - runningMin > maxProfit:
-                maxProfit = price - runningMin
-        return maxProfit
-
-    # runtime too high
-    """
-    def maxProfit(self, prices):
-        maxProfit = 0
-        days = len(prices)
-        for buyday in range(days):
-            for sellday in range(buyday + 1, days):
-                if prices[sellday] - prices[buyday] > maxProfit:
-                    maxProfit = prices[sellday] - prices[buyday]
-        return maxProfit
-    """
+            if price - runningMin > currentMax:
+                currentMax = price - runningMin
+        return currentMax

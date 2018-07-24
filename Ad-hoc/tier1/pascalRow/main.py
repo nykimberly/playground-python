@@ -2,7 +2,12 @@
 
 from solution import Solution
 
-index = 3
-
 sol = Solution()
-print(sol.getRow(index))
+
+print(sol.generate(0))
+print(sol.generate(1))
+print(sol.generate(2))
+print(sol.generate(3))
+print(sol.generate(4))
+print(sol.generate(5))
+
