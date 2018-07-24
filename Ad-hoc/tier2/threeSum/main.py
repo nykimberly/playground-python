@@ -12,6 +12,6 @@ arr = [1, 2, -2, -1]
 sol = Solution()
 print(sol.threeSum(arr))
 
-lst = [1, 0, -1, 2]
+lst = [-1,0,1,2,-1,-4]
 
 print(sol.threeSum(lst))

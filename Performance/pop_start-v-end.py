@@ -28,8 +28,8 @@ pz_arr = []
 # chart of data
 print("Sample | %-15s | %-15s" % ("pop()", "pop(0)"))
 print("--------------------------------------\n")
-# increment from 1mil to 10mil in steps of 1mil
-for i in range(100000, 2500001, 100000):
+# increment from 100,000 to 3mil in steps of 10,000
+for i in range(100000, 3000001, 10000):
     i_arr.append(i)
     x = list(range(i))
     pe = popend.timeit(number=1000)

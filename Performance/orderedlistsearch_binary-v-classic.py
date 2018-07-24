@@ -22,7 +22,7 @@ def binarySearch(list, item):
 
 
 # classic search for comparison
-def iterSearch(list, item):
+def linearSearch(list, item):
     for element in list:
         if item == element:
             return True
@@ -32,37 +32,41 @@ def iterSearch(list, item):
 binary = timeit.Timer("binarySearch(t, gold)",
                       "from __main__ import binarySearch, t, gold")
 
-classic = timeit.Timer("iterSearch(t, gold)",
-                       "from __main__ import iterSearch, t, gold")
+linear = timeit.Timer("linearSearch(t, gold)",
+                       "from __main__ import linearSearch, t, gold")
 
 # lets plot it
 sample = 0
 i_arr = []
 b_arr = []
-c_arr = []
+l_arr = []
 
 # chart of data
-print("Sample | Search | %-15s | %-15s" % ("binary", "classic"))
+print("Sample | Search | %-15s | %-15s" % ("Binary", "Linear"))
 print("--------------------------------------\n")
-# increment from 0 to 1000000 in steps of 50000
-for i in range(0, 500000, 2000):
-    gold = random.randint(0, i)
+# increment from 0 to 500000 in steps of 2000
+for i in range(0, 100, 1):
+    # Comment this in if you want random searches
+    # gold = random.randint(0, i)
+    # Comment this in if you want worst case
+    gold = i
     i_arr.append(i)
     t = list(range(i))
-    b = binary.timeit(number=1000)
+    b = binary.timeit(number=1)
     b_arr.append(b)
     t = list(range(i))
-    c = classic.timeit(number=1000)
-    c_arr.append(c)
+    l = linear.timeit(number=1)
+    l_arr.append(l)
     sample += 1
-    print("%-6s | %-6s | %-15.5f | %-15.5f" % (sample, gold, b, c))
+    print("%-6s | %-6s | %-15.5f | %-15.5f" % (sample, gold, b, l))
 
 # plot of data
+plt.scatter(i_arr, l_arr, color='red', label='Linear')
 plt.scatter(i_arr, b_arr, color='blue', label='Binary')
-plt.scatter(i_arr, c_arr, color='red', label='Classic')
+plt.ylim(-.000001, 0.000035)
 plt.grid()
-plt.title('Time Complexity: Binary vs. Classic Search')
+plt.title('Time Complexity: Binary vs. Linear Search')
 plt.xlabel('List size')
-plt.ylabel('Operation time in milliseconds')
+plt.ylabel('Operation time in hundred-milliseconds')
 plt.legend()
 plt.show()
