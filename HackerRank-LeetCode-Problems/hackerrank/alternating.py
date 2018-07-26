@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
+# %%
 def alternatingCharacters(s):
     a = 0
     b = 0
@@ -14,7 +14,7 @@ def alternatingCharacters(s):
         return 0
     else:
         return abs(a-b)-1
-"""
+# %%
 
 def alternatingCharacters(s):
     i = 0
