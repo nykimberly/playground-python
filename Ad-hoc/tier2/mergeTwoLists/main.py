@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from solution import Solution, ListNode
+from solution import Solution, Interval
 
 Bnode1 = ListNode(2)
 Bnode2 = ListNode(6)

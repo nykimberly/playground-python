@@ -1,4 +1,4 @@
-from treeNode import TreeNode
+from solution import TreeNode, Solution
 
 node = TreeNode(5)
 node.left = TreeNode(3)
@@ -18,8 +18,11 @@ def printNode(root):
     printNode(root.right)
 
 
+print("=====================")
 printNode(node)
 print("=====================")
-result = node.search(8)
-print(result)
-print(type(result))
+sol = Solution()
+node = sol.deleteNode(node, 5)
+print("=====================")
+printNode(node)
+print("=====================")

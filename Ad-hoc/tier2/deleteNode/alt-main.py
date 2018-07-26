@@ -1,4 +1,4 @@
-from treeNode import TreeNode
+from solution import TreeNode, Solution
 
 node = TreeNode(5)
 node.left = TreeNode(3)
@@ -20,6 +20,7 @@ def printNode(root):
 
 printNode(node)
 print("=====================")
-result = node.search(8)
-print(result)
-print(type(result))
+
+sol = Solution()
+sol.findMin(node)
+sol.search(node, 7)
