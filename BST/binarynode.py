@@ -7,8 +7,6 @@ Created on Mon Jul 16 20:43:15 2018
 """
 
 # Implementing some typical bst methods
-
-
 class binaryNode:
 
     def __init__(self, val, left=None, right=None):
