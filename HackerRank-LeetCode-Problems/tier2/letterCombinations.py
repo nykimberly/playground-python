@@ -9,7 +9,7 @@ class Solution:
 
         for n in nums:
             assert n in keymap, \
-            "digits must be between 2 and 9 (inclusive)!"
+                "digits must be between 2 and 9 (inclusive)!"
 
         results = []
 
@@ -30,6 +30,7 @@ class Solution:
 
         for char in keymap[curr_num]:
             self.recurse(keymap, nums, i+1, ss+char, results)
+
 
 sol = Solution()
 sol.letterComb(234)
