@@ -1,6 +1,3 @@
-import timeit
-
-
 def leftover_leaves_1(num_leaves, caterpillar_jumps):
     eat_count = 0
     eaten = False
@@ -20,19 +17,19 @@ def leftover_leaves_1(num_leaves, caterpillar_jumps):
 
 def leftover_leaves_2(num_leaves, jumps):
 
-    pairs = []
+    subsets = []
     n = len(jumps) - 1
-    sub_pairs(jumps, 0, n, [], pairs)
+    sub_pairs(jumps, 0, n, [], subsets)
 
     eaten = 0
     for num_jump in jumps:
         eaten += num_leaves//num_jump
 
-    for pair in pairs:
-        composite_lcm = find_lcm(pair[0], pair[1])
-        for i in range(2, len(pair)):
-            composite_lcm = find_lcm(composite_lcm, pair[i])
-        if len(pair) % 2 == 0:
+    for subset in subsets:
+        composite_lcm = find_lcm(subset[0], subset[1])
+        for i in range(2, len(subset)):
+            composite_lcm = find_lcm(composite_lcm, subset[i])
+        if len(subset) % 2 == 0:
             eaten -= num_leaves//composite_lcm
         else:
             eaten += num_leaves//composite_lcm
@@ -41,13 +38,13 @@ def leftover_leaves_2(num_leaves, jumps):
     return leftover
 
 
-def sub_pairs(arr, s, e, sub_arr, pairs):
+def sub_pairs(arr, s, e, sub_arr, subsets):
     if s == e + 1:
         if len(sub_arr) > 1 and len(sub_arr) <= len(arr):
-            pairs.append(sub_arr)
-        return pairs
-    sub_pairs(arr, s+1, e, sub_arr, pairs)
-    sub_pairs(arr, s+1, e, sub_arr+[arr[s]], pairs)
+            subsets.append(sub_arr)
+        return subsets
+    sub_pairs(arr, s+1, e, sub_arr, subsets)
+    sub_pairs(arr, s+1, e, sub_arr+[arr[s]], subsets)
 
 
 def find_lcm(num1, num2):
@@ -66,5 +63,6 @@ def find_lcm(num1, num2):
     lcm = int(int(num1 * num2)/int(gcd))
     return lcm
 
-print(leftover_leaves_1(10, [2, 3]))
-print(leftover_leaves_2(10, [2, 3]))
+
+print(leftover_leaves_1(10, [2, 3, 5]))
+print(leftover_leaves_2(10, [2, 3, 5]))
