@@ -2,24 +2,28 @@
 
 #Note: If there are multiple students with the same grade, order their names alphabetically and print each name on a new line.
 
+"""
+4
+Prashant
+32
+Pallavi
+36
+Dheeraj
+39
+Shivam
+40
+"""
+
 if __name__ == '__main__':
-    
-    phys_grades = []
-    min_grade = float("inf")
-    runner_up = float("inf")
+    grades = set()
+    grades_students = {}
     for _ in range(int(input())):
         name = input()
         score = float(input())
-        if score < min_grade:
-            runner_up = min_grade
-            min_grade = score
-        phys_grades.append([name, score])
-    
-    runner_up_students = []
-    for phys_grade in phys_grades:
-        if phys_grade[1] == runner_up:
-            runner_up_students.append(phys_grade[0])
-    
-    runner_up_students.sort()
-    for student in runner_up_students:
-        print(student)
+        grades.add(score)
+        grades_students[score] = grades_students.get(score, [])
+        grades_students[score].append(name)
+    grades = sorted(list(grades))
+    runner_up_students = sorted(grades_students[grades[1]])
+    for val in runner_up_students:
+        print(val)
