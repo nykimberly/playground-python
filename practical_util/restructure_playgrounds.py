@@ -19,6 +19,7 @@ import os
 import shutil
 
 source = '/home/nykimberly/code'
+
 # alternatively, if in current working directory, assign to os.getcwd()
 dest = '/home/nykimberly/code/Playgrounds'
 
@@ -27,4 +28,4 @@ files = os.listdir(source)
 for f in files:
 	if (f.startswith("Playground")):
 		os.rename(f, f[11:])
-		shutil.move(f, dest)
+		shutil.move(f[11:], dest)
