@@ -1,0 +1,11 @@
+#!/home/nykimberly/anaconda3/bin/python3
+
+import time
+import sys
+import random
+
+phrase = "Feels more conversational when terminal talks to you this way."
+for l in phrase:
+   sys.stdout.write(l)
+   sys.stdout.flush()
+   time.sleep(random.randrange(0,2)/10)
