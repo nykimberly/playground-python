@@ -1,0 +1,48 @@
+#!/home/nykimberly/anaconda3/bin/python3
+
+print("-----------------------Introductions-----------------------")
+
+# assign input to variable 'name'
+name = input("\tWhat is your name? ").strip()
+
+# take a count of names provided
+numnames = len(name.split())
+
+# convert to proper
+propername = name.title()
+
+# assume users input names in standard order of first, middle, last name
+if numnames > 0:
+    firstproper = propername.split()[0]
+    print("\tHello there %s" % firstproper)
+else:
+    print("\tNo first name provided.")
+
+if numnames > 1:
+    lastproper = propername.split()[numnames - 1]
+    print("\tYour family name is %s" % lastproper)
+else:
+    print("\tNo last name provided.")
+
+if numnames > 2:
+    middleproper = " ".join(list(propername.split()[x] for x in range(1, numnames - 1)))
+    print("\tYour middle name is %s" % middleproper)
+else:
+    print("\tNo middle name(s) provided.")
+
+print("-----------------------String Methods-----------------------")
+
+# you want to make sure the title is stripped of spaces
+# use lstrip to strip left side, rstrip for right, and strip for both
+title = input("\tDo you prefer Ms. or Mr? Ms./Mr. : ").strip()
+print("\tOkay! Hello " + title + " " + propername)
+print("\tIf you want your name in all caps, use the string upper() method: %s.\
+    \n\tIf you want your name in all lowers, use the string lower() method: %s " \
+    % (name.upper(), name.lower()))
+
+print("----------------------- Numbers-----------------------")
+
+target = int(input("\tWhat's your favorite number? ").strip())
+print("\tHalf of this number is %.2f" % (target / 2)) 
+print("\tFive less this number is %.2f " % (target - 5))
+print("\tTwice this number is %.2f" % (target * 2))
