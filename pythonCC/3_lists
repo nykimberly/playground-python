@@ -1,0 +1,68 @@
+#!/home/nykimberly/anaconda3/bin/python3
+import random
+import inflect
+
+# remove friends method
+def removeFriends():
+    bool = input("Is there anyone else you'd like to remove? y/n : ")
+    t = ['true', '1', 't', 'y', 'yes', 'yeah', 'yup', 'certainly', 'uh-huh']
+    f = ['false', '0', 'f', 'n', 'no', 'nah', 'nope', 'nuh-huh']
+    if bool in t:
+        lostfriend_n = input("Who would you like to remove? ").lower()
+        try:
+            top_8.remove(lostfriend_n)
+            print("%s removed!" % lostfriend_n.title())
+        except ValueError:
+            print("Can't find %s. Please identify a friend who is in your top 8." % lostfriend_n)
+        finally:    
+            removeFriends()
+    elif bool in f:
+        print("Keeping friends list as is then...")
+        exit
+    else:
+        print("I don't understand your command. Try entering 'yes' or 'no'.")
+        removeFriends()
+
+print("\n----------------Building our Top 8----------------")
+rank = inflect.engine()
+top_8 = list()
+
+count = 0
+while count < 8:
+    friend = input("Who is your %s best friend? " % (rank.ordinal(count+1))).lower()
+    if friend in top_8:
+        print("You've already added that friend.")
+        continue
+    else:
+        top_8.append(friend)
+        count += 1
+
+reasons = list()
+for i in range(len(top_8) - 1):
+    reasons.append(input("Why do you like %s better than %s? " % (top_8[i].title(), top_8[i+1].title())))
+
+print("\n----------------Losing Friends...----------------")
+lostfriend_i = random.randrange(0, len(top_8))
+print("Oh no! You and {0} got in a fight! We will have to remove {0} from your top 8."\
+        .format(top_8[lostfriend_i].title()))
+
+del top_8[lostfriend_i]
+
+removeFriends()
+
+print("\n----------------Trimming Friends...----------------")
+print("Actually, turns out, myspace only allows top 4 now...",\
+       "so we're going to have to remove any excess friends.")
+while len(top_8) > 4:
+    lostfriend = top_8.pop()
+    print("%s has been removed." % lostfriend.title())
+print("Your top friends are now, ")
+for friend in top_8:
+    print("\t", friend.title())
+
+print("\n----------------Starting Drama----------------")
+print("Now myspace is being even more cruel. A bug in the software has decided to sort your top friends by names instead of how good of a friend they are to you. Your new top 4 is:")
+top_8_sorted = sorted(top_8)
+for friend in top_8_sorted:
+    print("\t", friend.title())
+
