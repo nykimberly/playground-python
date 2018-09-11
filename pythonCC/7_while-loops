@@ -1,0 +1,34 @@
+#!/home/nykimberly/anaconda3/bin/python3
+
+# run a poll
+count = 0
+active = True
+responses = {}
+while active == True:
+    name = input("What is your name? ")
+    responses[name]= input("Do you like Nike shoes? ")
+    cont = input("Thanks for your response! Would you like to pass this poll to a friend? ")
+    if cont in ["n", "no"]:
+        active = False
+    elif cont in ["y", "yes"]:
+        continue
+    count += 1
+    if count == 10:
+        break
+
+# count the votes
+votes = []
+for vote in responses.values():
+    votes.append(vote)
+
+# rig the poll
+while "yes" in votes:
+    votes.remove("yes")
+
+# print results
+print("The poll results are...", votes)
+
+# expose the no voters
+for name, vote in responses.items():
+    if vote == "no":
+        print("\t%s voted 'no'" % name)
