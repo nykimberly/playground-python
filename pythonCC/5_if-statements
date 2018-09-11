@@ -1,0 +1,44 @@
+#!/home/nykimberly/anaconda3/bin/python3
+import inflect
+
+# print person's 'stage of life'
+age = input("How old are you? ")
+
+propertype = False
+while propertype != True:
+    try:
+        int(age)
+        propertype = True
+    except ValueError:
+        age = input("Please enter an integer value for your age: ")
+
+age = int(age)
+
+if age < 2:
+    stage = "baby"
+elif age < 4:
+    stage = "toddler"
+elif age < 13:
+    stage = "kid"
+elif age < 20:
+    stage = "teenager"
+elif age < 65:
+    stage = "adult"
+elif age >= 65:
+    stage = "elder"
+
+print("Greetings, %s" % stage.title())
+
+# create something with ordinal numbers and add only unique inputs
+rank = inflect.engine()
+top_8 = list()
+
+count = 0
+while count < 8:
+    friend = input("Who is your %s best friend? " % (rank.ordinal(count+1))).lower()
+    if friend in top_8:
+        print("You've already added that friend.")
+        continue
+    else:
+        top_8.append(friend)
+        count += 1
