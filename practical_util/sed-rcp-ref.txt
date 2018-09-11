@@ -1,0 +1,6 @@
+sed -n 91,100p 8_functions > miniscript
+sed -i '2i #!/home/nykimberly/anaconda3/bin/python3' miniscript
+
+sed -n 16,19p 8_functions > greeting.py; 
+sed -i 16,19d 8_functions; 
+sed -i '16i importgreeting' 8_functions
