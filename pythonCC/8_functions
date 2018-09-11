@@ -1,0 +1,105 @@
+#!/home/nykimberly/anaconda3/bin/python3
+
+import time
+import sys
+import random
+
+# define intro function
+def intro():
+    """This is a docstring, used for documentation"""
+    print("Hello! This is a message from the intro function")
+
+# call intro function
+intro()
+
+
+# define greeting function
+# beware of SyntaxError: non-default argument follows default argument
+def greeting(name, haircolor, adjective='cool'):
+    """This function greets user by their supplied name"""
+    print("Hello %s! You are %s. I love your %s haircolor." \
+        % (name.title(), adjective, haircolor))
+
+# call greeting function
+username = input("Hello there! What's your name? ")
+#   leaving the default argument as is
+greeting(username, 'auburn')
+#   assigning the third argument positionally
+greeting(username, 'auburn', 'pretty')
+#   assigning the third argument with keyword
+greeting(adjective='nice', haircolor='auburn', name=username)
+
+
+#define build person function
+def build_person(firstname, lastname, age=""):
+    """Returns person dictionary object"""
+    person = {
+        'first_name': firstname,
+        'last_name': lastname,
+    }
+    if bool(age) == True:
+        person['age'] = age
+    return person
+
+print(build_person("kimberly", "nguyen"))
+print(build_person("kimberly", "nguyen", "24"))
+
+
+# Move items between two stacks
+def move_item(stack1, stack2):
+    stackitem = stack1.pop()
+    message = "stack 1 ---" + stackitem + "--> stack 2"
+    for char in message:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(random.randrange(1,3)/10)
+    stack2.append(stackitem)
+    print("\nmove completed!")
+    print("stack1: " + str(stack1) + "\nstack2: " + str(stack2))
+
+def display_stacks(stack1, stack2):
+    stack1.reverse()
+    stack2.reverse()
+    print("stack1:")
+    for item in stack1:
+        print("\t", item)
+    print("stack2:")
+    for item in stack2:
+        print("\t", item)
+    stack1.reverse()
+    stack2.reverse()
+
+alist = ['***', '**', '*']
+blist = ['###', '##', '#']
+move_item(alist, blist)
+display_stacks(alist, blist)
+
+# alternatively, pass a copy
+move_item(alist[:], blist[:])
+# you can see from this display return that original alist not moved
+display_stacks(alist, blist)
+
+
+# now let's pass arbitrary number of arguments
+def print_filenames(*filenames):
+    for filename in filenames:
+        print(filename)
+        
+print_filenames("doc1", "doc2", "doc3", "doc4")
+
+
+# to get even more arbitrary...
+def note(author, title='Untitled', **body):
+    note = {
+        'note_title': title, 
+        'note_author': author, 
+        'note_body': {}
+    }
+    for key, val in body.items():
+        note['note_body'][key] = val
+    print(note)
+
+note("kimberly",life="isn't it lovely?", 
+coffee="one of those things that makes life lovely") 
+note("kimberly", "thoughts", life="isn't it lovely?", 
+coffee="one of those things that makes life lovely") 
