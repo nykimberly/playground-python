@@ -5,29 +5,21 @@ import sys
 import random
 
 # define intro function
-def intro():
-    """This is a docstring, used for documentation"""
-    print("Hello! This is a message from the intro function")
-
+import intro
 # call intro function
-intro()
-
+intro.intro()
 
 # define greeting function
 # beware of SyntaxError: non-default argument follows default argument
-def greeting(name, haircolor, adjective='cool'):
-    """This function greets user by their supplied name"""
-    print("Hello %s! You are %s. I love your %s haircolor." \
-        % (name.title(), adjective, haircolor))
-
+import greeting
 # call greeting function
 username = input("Hello there! What's your name? ")
 #   leaving the default argument as is
-greeting(username, 'auburn')
+greeting.greeting(username, 'auburn')
 #   assigning the third argument positionally
-greeting(username, 'auburn', 'pretty')
+greeting.greeting(username, 'auburn', 'pretty')
 #   assigning the third argument with keyword
-greeting(adjective='nice', haircolor='auburn', name=username)
+greeting.greeting(adjective='nice', haircolor='auburn', name=username)
 
 
 #define build person function
