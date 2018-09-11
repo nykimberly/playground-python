@@ -1,0 +1,34 @@
+#!/home/nykimberly/anaconda3/bin/python3
+from decimal import *
+
+# squares, list comprehension
+squares = [value**2 for value in range(1, 11)]
+print("\n\tThis is a list of squares for values 1 through 10: ", squares)
+
+# sum to a million, list comprehension
+millisum = [num for num in range(10**6+1)]
+print("\n\tMillisum list starts at %d and continues until %d" \
+        %(min(millisum), max(millisum)))
+print("\tIf we sum all of these elements, we get ", sum(millisum))
+print("\tThe first half of the list sums to %d, while the second half of the
+        list sums to %d" \
+        % (sum(millisum[:int(0.5*10**6)]), sum(millisum[-int(0.5*10**6):])))
+
+# print odd numbers from 1 to 20, list comprehension
+odd_upto20 = [num for num in range(1, 20, 2)]
+print("\n\tThis is a list of odd numvers from 1 to 20: ", odd_upto20)
+
+# print list of multiples of 3 from 3 to 30
+multiples_of_3 = [num for num in range(3, 31) if num % 3 == 0 ]
+print("\n\tThis is a list of multiples of 3, from 3 to 30", multiples_of_3)
+
+# generate list of first 10 cubes
+cubes = [num**3 for num in range(1, 11)]
+print("\n\tThis is a list of the first tend cubes", cubes)
+
+# make a copy of cubes and convert to squares (for kicks and giggles)
+squares = cubes[:]
+for i in range(len(squares)):
+    squares[i] = int(Decimal(squares[i]) ** (Decimal(2)/Decimal(3)))
+
+print("\n\tThis is a list of squares, generated from list of cubes", squares)
