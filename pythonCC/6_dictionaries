@@ -1,0 +1,45 @@
+#!/home/nykimberly/anaconda3/bin/python3
+import time
+import sys
+import random
+import inflect
+
+player_scores = {
+	'serene': list(random.randrange(0,100) for i in range(5)),
+	'rachel': list(random.randrange(0,100) for i in range(5)),
+	'kimberly': list(random.randrange(0,100) for i in range(5)),
+	'christina': list(random.randrange(0,100) for i in range(5)),
+	'darren': list(random.randrange(0,100) for i in range(5)),
+	'mary': list(random.randrange(0,100) for i in range(5)),
+}
+
+print("\nOur players are: ")
+for player in player_scores.keys():
+	print("\t", player.title())
+
+phrase = "\nThey are going to play 5 games of dice.\
+.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:"
+for l in phrase:
+   sys.stdout.write(l)
+   sys.stdout.flush()
+   time.sleep(random.randrange(0,2)/10)
+
+print("\n\nAnd our scores are...")
+for player, score_list in player_scores.items():
+    print("\t%s: %s" % (player.title(), str(score_list)))
+
+player_scores_summed = {}
+print("\nThis tallies up to:")
+for player, score_list in player_scores.items():
+    player_scores_summed[sum(score_list)] = player
+    print("\t%s: %s" % (player.title(), str(sum(score_list))))
+
+print("\nWhich means are top 3 winners are:")
+rank = inflect.engine()
+count = 0
+for sum_score, player in sorted(player_scores_summed.items(), reverse=True):
+    if count <= 2:
+        count += 1
+        print("Our %s place winner is %s!" % (rank.ordinal(count), player.title()))
+    else:
+        break
