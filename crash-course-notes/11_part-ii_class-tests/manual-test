@@ -1,0 +1,18 @@
+#!/home/nykimberly/anaconda3/bin/python3
+from poll import AnonPoll
+
+os_poll = AnonPoll("What is a good song?")
+
+print("Welcome to our poll. Feel free to submit multiple responses.")
+print("Press q anytime to exit.")
+
+response = input(os_poll.show_question() + " ")
+while True:
+    if response.lower() == 'q':
+        break
+    os_poll.store_response(response)
+    response = input("Thank you! " + \
+            "Feel free to submit another response or press 'q' to quit.\n" +\
+            " >> ")
+
+os_poll.show_results()
