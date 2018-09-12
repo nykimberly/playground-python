@@ -1,0 +1,1 @@
+printf '0\nj\n1' | ./10_main
