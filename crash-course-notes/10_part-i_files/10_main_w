@@ -1,0 +1,32 @@
+#!/home/nykimberly/anaconda3/bin/python3
+
+# python can only write strings to a text file, 
+# so convert numerical data first before writing
+
+print("-------------write a couple lines to 'about_me.txt'")
+filename = 'about_me.txt'
+with open(filename, 'w') as f:
+    f.write("My name is Kimberly.\n")
+    f.write("I like learning things.\n")
+
+print("-------------append a couple lines to previous file")
+with open(filename, 'a') as f:
+    f.write("When I retire, ")
+    f.write("I'd like to put my skills into philanthropic ventures.\n")
+    f.write("I'd like to also contribute to computing and physics.")
+
+with open(filename) as f:
+    contents = f.read()
+
+print(contents.rstrip())
+
+print("-------------append a couple lines to previous file")
+poll_file = 'OS-poll_responses.txt'
+response = input("Hello there." +\
+            " We'd love your opinion: what's your favorite operating system? ")
+
+with open(poll_file, 'a') as f:
+    f.write(response + "\n")
+
+with open(poll_file) as f:
+    print(f.read().strip())

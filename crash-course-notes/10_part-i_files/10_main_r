@@ -1,0 +1,54 @@
+#!/home/nykimberly/anaconda3/bin/python3
+
+# * read() if size if omitted, then it reads the entire file and returns it
+# * readline() >> reads a single line from file with newline at the end
+# * readlines() >> returns a list containing all the lines in the file
+# * xreadlines() >> Returns a generator to loop over every single line in the file
+
+print("-------------return all file content in one block-------------")
+with open('pi_files/pi_30_digits.txt') as file_object:
+    # read() returns an empty string when it reaches end of file
+    # feel free to use print(contents.rstrip) to remove the blank
+    contents = file_object.read().rstrip()
+    print(contents)
+
+print("-------------step through file contents, line by line------------")
+with open('pi_files/pi_30_digits.txt') as file_object:
+    first_line = file_object.readline().rstrip()
+    print(first_line)
+    second_line = file_object.readline().rstrip()
+    print(second_line)
+
+print("-------------loop through file_object as a list and run checks if desired-----------")
+with open('pi_files/pi_30_digits.txt') as file_object:
+    for line in file_object:
+        if '1' in line:
+            print("there's a '1' in this line!")
+            print(line.rstrip())
+
+print("-------------assign filename to variable 'filename'----------")
+# for interchangability, let's stop referencing the file directly
+filename = 'pi_files/pi_30_digits.txt'
+
+print("-------------persist contents after file close by copying to list---------")
+# to persist contents after closing file, save it to a list
+with open(filename) as f:
+    lines = f.readlines()
+for line in lines:
+    print(line.rstrip())
+
+print("-------------create single pi string and measure length--------")
+pi_string = ""
+for line in lines:
+    pi_string += line.strip()
+print("pi_string is %s and has a length of %d" % (pi_string, len(pi_string)))
+
+print("-------------lets do a larger file-------")
+filename = 'pi_files/pi_million_digits.txt'
+pi_milli_string = ""
+with open(filename) as f:
+    lines = f.readlines()
+for line in lines:
+    pi_milli_string += line.strip()
+print(pi_milli_string)
+print(len(pi_milli_string))
