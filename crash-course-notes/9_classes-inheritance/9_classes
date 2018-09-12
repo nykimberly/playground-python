@@ -1,6 +1,6 @@
 #!/home/nykimberly/anaconda3/bin/python3
-
 from dog import *
+from user import User, Admin
 
 print("------------------Initializing Kimby, of Dog class------------------")
 kimby = Dog("kimby", "x")
@@ -25,3 +25,13 @@ cute_rachel = CuteDog("cute rachel", 9001, 24)
 cute_rachel.roll_over()
 cute_rachel.cute_up(1000)
 cute_rachel.sit()
+
+print("\n------------------Initializing Users Kimby and Christy and Admin Rachy------------------")
+kimby = User("kimby", "kimby123")
+kimby.create_post("<lots of bad words>")
+
+christy = User("christy", "christy123")
+christy.read_post(23122)
+
+rachy = Admin("rachy", "rachy123", "rachyengineer123")
+rachy.delete_post(23122)
