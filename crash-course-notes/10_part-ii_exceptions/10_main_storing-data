@@ -1,23 +1,33 @@
 #!/home/nykimberly/anaconda3/bin/python3
 import json
 
-filename = 'user_data.json'
-try:
-    with open(filename) as f:
-        user_data = json.load(f)
-except FileNotFoundError:
-    user_data = {}
+def load_json_db(dbpath):
+    """loads jsondb of choice"""
+    try:
+        with open(dbpath) as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        data = {}
+    else:
+        return data
+
+def fetch_user_age(username, userdata, userdb):
+    """fetch user age from db"""
+    if username in userdata:
+        print("Welcome back %s!" % username.title())
+        age = userdata[username]
+        print("Last we spoke, you were %s years old!" % age)
+    else:
+        age = input("And how old are you? ")
+        userdata[username] = age
+        with open(userdb, 'w') as f:
+            json.dump(userdata, f)
+        msg = "Thanks, " + username.title() + "!\n"
+        msg += "We have stored your info for next time."
+        print(msg)
 
 name = input("Hello there. What is your name? ").lower()
-if name in user_data:
-    print("Welcome back %s!" % name.title())
-    age = user_data[name]
-    print("Last we spoke, you were %s years old!" % age)
-else:
-    age = input("And how old are you? ")
-    user_data[name] = age
-    with open(filename, 'w') as f:
-        json.dump(user_data, f)
-    msg = "Thanks, " + name.title() + "!\n"
-    msg += "We have stored your info for next time."
-    print(msg)
+
+jsondb = 'user_data.json'
+user_data = load_json_db(jsondb)
+fetch_user_age(name, user_data, jsondb)
