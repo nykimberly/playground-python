@@ -1,3 +1,34 @@
 #!/home/nykimberly/anaconda3/bin/python3
 
+# assertEqual(a, b)
+# assertNotEqual(a, b)
+# assertTrue(x)
+# assertFalse(x)
+# assertIn(item, list)
+# assertNotIn(item, list)
 
+import unittest
+from poll import AnonPoll
+
+class TestAnonPoll(unittest.TestCase):
+    """Tests for the AnonPoll class"""
+
+    def setUp(self):
+        """Create a survey and set of responses for use in tests."""
+        question = "What is an awesome city?"
+        self.my_city_poll = AnonPoll(question)
+        self.responses = ['San Diego', 'San Francisco', 'New York City']
+
+    def test_store_single_response(self):
+        """Test that a single response is stored properly."""
+        self.my_city_poll.store_response(self.responses[0])
+        self.assertIn(self.responses[0], self.my_city_poll.responses)
+
+    def test_store_multiple_responses(self):
+        """Test that multiple responses are stored properly."""
+        for response in self.responses:
+            self.my_city_poll.store_response(response)
+        for response in self.responses:
+            self.assertIn(response, self.my_city_poll.responses)
+    
+unittest.main()
