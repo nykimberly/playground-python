@@ -1,0 +1,23 @@
+#!/home/nykimberly/anaconda3/bin/python3
+import json
+
+filename = 'user_data.json'
+try:
+    with open(filename) as f:
+        user_data = json.load(f)
+except FileNotFoundError:
+    user_data = {}
+
+name = input("Hello there. What is your name? ").lower()
+if name in user_data:
+    print("Welcome back %s!" % name.title())
+    age = user_data[name]
+    print("Last we spoke, you were %s years old!" % age)
+else:
+    age = input("And how old are you? ")
+    user_data[name] = age
+    with open(filename, 'w') as f:
+        json.dump(user_data, f)
+    msg = "Thanks, " + name.title() + "!\n"
+    msg += "We have stored your info for next time."
+    print(msg)
