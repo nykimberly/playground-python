@@ -1,6 +1,7 @@
 #!/home/nykimberly/anaconda3/bin/python3
 from dog import *
-from user import User, Admin
+from user import User
+from admin import Admin
 
 print("------------------Initializing Kimby, of Dog class------------------")
 kimby = Dog("kimby", "x")
