@@ -7,20 +7,16 @@ print("---------------Type q anytime to quit.")
 x = input("\n\tEnter your favorite non-zero number: ")
 
 while True:
-    valid = False
-    while not valid:
-        if x.lower() == 'q':
-            print("Exiting program.")
-            exit()
-        try:
-            1/int(x)
-            valid = True
-        except ValueError:
-            x = input("\tPlease enter an integer: ")
-            continue
-        except ZeroDivisionError:
-            x = input("\tPlease enter an integer that is not zero: ")
-
-    print("\te divided by your number is %.2f" % (math.e/int(x)))
-
-    x = input("\n\tFeel free to enter another number or press q to quit: ")
+    if x.lower() == 'q':
+        print("Exiting program.")
+        break
+    try:
+        1/int(x)
+    except ValueError:
+        x = input("\tPlease enter an integer: ")
+        continue
+    except ZeroDivisionError:
+        x = input("\tPlease enter a non-zero value: ")
+    else:
+        print("\te divided by your number is %.2f" % (math.e/int(x))) 
+        x = input("\n\tFeel free to enter another number or press q to quit: ")
