@@ -1,0 +1,19 @@
+#!/home/nykimberly/anaconda3/bin/python3
+
+import unittest
+from format_names import format_name_title as fnt
+
+class FormatNamesTestCase(unittest.TestCase):
+    """Tests methods in 'format_names.py.'"""
+    
+    def test_first_last_name(self):
+        """Are we able to fetch both first and last name?"""
+        name = fnt('kimberly', 'ngUyen')
+        self.assertEqual(name, 'Kimberly Nguyen')
+
+    def test_first_last_middle_name(self):
+        """Are we able to fetch first, last, AND middle names?"""
+        name = fnt('kimberly', 'ngUyen', 'van anh')
+        self.assertEqual(name, 'Kimberly Van Anh Nguyen')
+
+unittest.main()
