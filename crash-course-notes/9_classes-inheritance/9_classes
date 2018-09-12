@@ -1,0 +1,27 @@
+#!/home/nykimberly/anaconda3/bin/python3
+
+from dog import *
+
+print("------------------Initializing Kimby, of Dog class------------------")
+kimby = Dog("kimby", "x")
+
+kimby.sit()
+kimby.roll_over()
+print("\nKimby's %d years old." % kimby.age)
+
+kimby.celebrate_birthday()
+print("\nKimby's %d years old." % kimby.age)
+
+print("\nOh no! Kimby has been hacked!")
+kimby.age = 5
+print("\nKimby's %d years old." % kimby.age)
+
+print("\n------------------Initializing Cute Kimby, of CuteDog class------------------")
+cute_kimby = CuteDog("cute kimby", 9000, 24)
+cute_kimby.roll_over()
+cute_kimby.sit()
+
+cute_rachel = CuteDog("cute rachel", 9001, 24)
+cute_rachel.roll_over()
+cute_rachel.cute_up(1000)
+cute_rachel.sit()
