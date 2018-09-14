@@ -1,5 +1,5 @@
-import sys # to exit game when player decides to quit
 import pygame
+import game_functions as gf
 from settings import Settings
 from ship import Ship
 
@@ -8,12 +8,10 @@ def run_game():
     pygame.init()
 
     # Initialize settings object
-    ainvasion_settings = Settings()
+    settings = Settings()
 
-    # Initialize screen object of 1200x800
-    # These objects are called 'surfaces'
-    screen = pygame.display.set_mode(
-        (ainvasion_settings.screen_width, ainvasion_settings.screen_height))
+    # Initialize screen object of 1200x800 and add caption
+    screen = pygame.display.set_mode((settings.screen_w, settings.screen_h))
     pygame.display.set_caption("Alien Invasion")
     
     # Initialize ship
@@ -23,21 +21,13 @@ def run_game():
     # Surfaces are redrawn on every pass of our loop
     while True:
 
-        # event loop to listen for and respond to events
-        for event in pygame.event.get():
-            # pygame.QUIT is the exit button on our window
-            if event.type == pygame.QUIT:
-                sys.exit()
-        
-        # Maintain background color
-        screen.fill(ainvasion_settings.bg_color)
-        
-        # Update position of ship
-        ship.blitme()
+        # Check for events
+        gf.check_events()
 
-        # Keep display up to date; draws empty screen to hide old 
-        # and redraws the new display
-        pygame.display.flip()
+        # Maintain background color
+        # Update position of ship
+        # Flip to new screen
+        gf.update_screen(settings, screen, ship)
 
 # call program
 run_game()
