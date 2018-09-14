@@ -1,0 +1,10 @@
+Objective: Score as many points as possible and beat high score.
+
+Setup:
+	- Player is a ship that can move left and right on bottom of screen
+	  using left and right arrow keys. 
+	- Player can shoot bullets with spacebar.
+	- Fleet of target aliens cover the rest of the screen and moves down
+	  toward the player ship.
+	- Every new fleet of aliens is faster than the previous fleet. 
+	- Player has three ships. 
