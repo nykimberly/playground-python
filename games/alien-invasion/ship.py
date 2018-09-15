@@ -19,12 +19,12 @@ class Ship():
         self.moving_left = False
         # Set ship speed
         self.settings = settings
-    
+
     def update(self, settings):
         """Update ship's position based on movement flags"""
-        if self.moving_right:
+        if self.moving_right and self.center < self.screen_rect.right:
             self.center += 1 * self.settings.ship_speed_factor
-        if self.moving_left:
+        if self.moving_left and self.center > self.screen_rect.left:
             self.center -= 1 * self.settings.ship_speed_factor
         # Adjust rect center to self center result
         self.rect.centerx = self.center
