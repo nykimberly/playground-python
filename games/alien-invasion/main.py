@@ -22,7 +22,7 @@ def run_game():
     while True:
 
         # Check for events
-        gf.check_events()
+        gf.check_events(ship)
 
         # Maintain background color
         # Update position of ship

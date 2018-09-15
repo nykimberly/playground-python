@@ -14,6 +14,9 @@ class Ship():
         # Start ship position at bottom center of screen
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
+        
+        # Initialize movement flag to false
+        self.moving_right = False
 
     def blitme(self):
         """Draw ship using bit-boundary block transfer (blit)"""
