@@ -1,0 +1,16 @@
+Files:
+
+I. main.py
+	Creates objects used in game and runs game loop
+
+II. settings.py
+	Contains screen color, ship speed, etc.
+
+III. game_functions.py
+	Manages bulk of functions needed for game
+
+IV. ship.py
+	Contains Ship class
+
+V. bullet.py
+	Contains Bullet class
