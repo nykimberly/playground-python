@@ -15,7 +15,7 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")
     
     # Initialize ship
-    ship = Ship(screen)
+    ship = Ship(screen, settings)
 
     # Main loop for game
     # Surfaces are redrawn on every pass of our loop
@@ -25,7 +25,7 @@ def run_game():
         gf.check_events(ship)
 
         # Update ship
-        ship.update()
+        ship.update(settings)
 
         # Flip to new screen, ship position, etc.
         gf.update_screen(settings, screen, ship)
