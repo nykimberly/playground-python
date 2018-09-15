@@ -24,9 +24,10 @@ def run_game():
         # Check for events
         gf.check_events(ship)
 
-        # Maintain background color
-        # Update position of ship
-        # Flip to new screen
+        # Update ship
+        ship.update()
+
+        # Flip to new screen, ship position, etc.
         gf.update_screen(settings, screen, ship)
 
 # call program

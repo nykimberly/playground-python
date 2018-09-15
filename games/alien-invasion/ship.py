@@ -17,6 +17,14 @@ class Ship():
         
         # Initialize movement flag to false
         self.moving_right = False
+        self.moving_left = False
+    
+    def update(self):
+        """Update ship's position based on movement flags"""
+        if self.moving_right:
+            self.rect.centerx += 1
+        if self.moving_left:
+            self.rect.centerx -= 1
 
     def blitme(self):
         """Draw ship using bit-boundary block transfer (blit)"""
