@@ -31,11 +31,12 @@ def check_keyup_events(event, ship):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = False
 
-def update_screen(settings, screen, ship, bullets):
+def update_screen(settings, screen, ship, bullets, alien):
     """Keep display upto date"""
     screen.fill(settings.bg_color)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
+    alien.blitme()
     ship.blitme()
     pygame.display.flip()
 

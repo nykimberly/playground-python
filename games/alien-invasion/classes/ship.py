@@ -1,8 +1,9 @@
 import pygame
 
 class Ship():
+    """A class to represent player's ship"""
 
-    def __init__(self, screen, settings):
+    def __init__(self, settings, screen):
         """Initialize ship and set starting position"""
         self.screen = screen
         # Load ship and rectangle attributes
