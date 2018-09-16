@@ -41,6 +41,9 @@ def run_game():
         # get rid of off-screen bullets
         gf.update_bullets(bullets)
 
+        # Update aliens
+        gf.update_aliens(settings, aliens)
+
         # Flip to new screen, ship position, etc.
         gf.update_screen(settings, screen, ship, bullets, aliens)
 
