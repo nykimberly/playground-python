@@ -2,7 +2,6 @@ import pygame
 import helpers.game_functions as gf
 from helpers.settings import Settings
 from classes.ship import Ship
-from classes.alien import Alien
 from pygame.sprite import Group
 
 def run_game():
@@ -19,8 +18,9 @@ def run_game():
     # Initialize ship
     ship = Ship(settings, screen)
 
-    # Initialize alien
-    alien = Alien(settings, screen)
+    # Initialize alien and create fleet
+    aliens = Group()
+    gf.create_fleet(settings, screen, aliens)
 
     # Create group for bullets
     bullets = Group()
@@ -42,7 +42,7 @@ def run_game():
         gf.update_bullets(bullets)
 
         # Flip to new screen, ship position, etc.
-        gf.update_screen(settings, screen, ship, bullets, alien)
+        gf.update_screen(settings, screen, ship, bullets, aliens)
 
 # call program
 run_game()
