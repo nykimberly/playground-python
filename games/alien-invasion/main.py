@@ -35,10 +35,8 @@ def run_game():
         bullets.update()
 
         # get rid of off-screen bullets
-        for bullet in bullets.copy():
-            if bullet.rect.bottom <= 0:
-                bullets.remove(bullet)
-        
+        gf.update_bullets(bullets)
+
         # Flip to new screen, ship position, etc.
         gf.update_screen(settings, screen, ship, bullets)
 
