@@ -1,0 +1,13 @@
+django-admin startproject learning log .
+	started project with good directory structure
+
+python manage.py migrate
+	creates db and db.sqlite3
+
+python manage.py runserver
+	runs server on localhost or 127.0.0.1 (pingback)
+
+python manage.py startapp <app-name>
+	tells django to create infra for new app
+
+
