@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from learning_logs.models import Topic
+
+# Tell django to manage our Topic model through admin site
+admin.site.register(Topic)

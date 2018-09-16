@@ -10,4 +10,12 @@ python manage.py runserver
 python manage.py startapp <app-name>
 	tells django to create infra for new app
 
+python manage.py makemigrations learning_logs
+	tells django to figure out how to modify db to store new models
+	i.e. Migrations for 'learning_logs':
+	  learning_logs/migrations/0001_initial.py
+	    - Create model Topic
+	then we can apply migrations with $ python manage.py migrate
 
+python manage.py createsuperuser
+	creates superuser
