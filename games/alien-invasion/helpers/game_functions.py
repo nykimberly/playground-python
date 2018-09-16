@@ -51,20 +51,27 @@ def fire_bullets(settings, screen, ship, bullets):
     new_bullet = Bullet(settings, screen, ship)
     bullets.add(new_bullet)
 
-def create_fleet(settings, screen, aliens):
-    """Create a fleet of aliens"""
-    # Instantiate alien
+def get_number_aliens_x(settings, alien_w):
+    """Determine number of aliens that can fit in row"""
+    # Calculate number of aliens that can fit on screen
+    available_space_x = settings.screen_w - 2 * alien_w
+    number_aliens_x = int(available_space_x / (2 * alien_w))
+    return number_aliens_x
+
+def create_alien(settings, screen, aliens, alien_number):
+    """Instantiate an alien and place it in row"""
     alien = Alien(settings, screen)
     # Define attributes
-    alien_width = alien.rect.width
-    # Calculate number of aliens that can fit on screen
-    available_space_x = settings.screen_w - 2 * alien_width
-    number_aliens_x = int(available_space_x / (2 * alien_width))
+    alien_w = alien.rect.width
+    # Use alien_number in position calculation
+    alien.x = alien_w + 2 * alien_w * alien_number
+    alien.rect.x = alien.x
+    aliens.add(alien)
+
+def create_fleet(settings, screen, aliens):
+    """Create a fleet of aliens"""
+    alien = Alien(settings, screen)
+    number_aliens_x = get_number_aliens_x(settings, alien.rect.width)
     # Create a row of aliens
     for alien_number in range(number_aliens_x):
-        alien = Alien(settings, screen)
-        # Use alien_number in position calculation
-        alien.x = alien_width + 2 * alien_width * alien_number
-        alien.rect.x = alien.x
-        aliens.add(alien)
-
+        create_alien(settings, screen, aliens, alien_number)
