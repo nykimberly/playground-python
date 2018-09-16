@@ -1,11 +1,11 @@
 import sys
 import pygame
-from bullet import Bullet
+from classes.bullet import Bullet
 
 def check_events(screen, settings, ship, bullets):
     """Respond to keypresses and mouse events."""
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT: 
             sys.exit() 
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, settings, screen, ship, bullets)
@@ -21,6 +21,8 @@ def check_keydown_events(event, settings, screen, ship, bullets):
     elif event.key == pygame.K_SPACE:
         if len(bullets) < settings.screen_bullet_limit:
             fire_bullets(settings, screen, ship, bullets)
+    elif event.key == pygame.K_q:
+        sys.exit()
 
 def check_keyup_events(event, ship):
     """Respond to key releases"""

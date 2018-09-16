@@ -1,7 +1,7 @@
 import pygame
-import game_functions as gf
-from settings import Settings
-from ship import Ship
+import helpers.game_functions as gf
+from helpers.settings import Settings
+from classes.ship import Ship
 from pygame.sprite import Group
 
 def run_game():
