@@ -39,7 +39,7 @@ def run_game():
         bullets.update()
 
         # get rid of off-screen bullets
-        gf.update_bullets(bullets)
+        gf.update_bullets(aliens, bullets)
 
         # Update aliens
         gf.update_aliens(settings, aliens)
