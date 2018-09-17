@@ -1,0 +1,7 @@
+<!-- Parent template, every other template will inherit from base.html -->
+<p>
+  <!-- if you want to update url, do so in urls.py and will automatically update here -->
+  <a href="{% url 'learning_logs:index' %}">Learning Log</a>
+</p>
+
+{% block content %}{% endblock content %}

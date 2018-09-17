@@ -47,3 +47,7 @@ map and create learning log home page
 	create templates directory > learnings_logs subdirectory > index.html
 	in views.py, write method to render index.html
 
+general steps to build pages
+	1. specify url pattern
+	2. write view function
+	3. write template
