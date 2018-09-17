@@ -42,4 +42,8 @@ django shell
 	>>> t.entry_set.all()
 	[<Entry: ..... >, <Entry: ..... >]
 
+map and create learning log home page
+	create urls.py in learning_logs app and include in learning_log urls pattern
+	create templates directory > learnings_logs subdirectory > index.html
+	in views.py, write method to render index.html
 
