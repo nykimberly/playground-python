@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from learning_logs.models import Topic
+from learning_logs.models import Topic, Entry
 
-# Tell django to manage our Topic model through admin site
+# Tell django to manage our Topic and Entry models through admin site
 admin.site.register(Topic)
+admin.site.register(Entry)

@@ -19,3 +19,27 @@ python manage.py makemigrations learning_logs
 
 python manage.py createsuperuser
 	creates superuser
+
+django shell
+	python manage.py shell
+	>>> from learning_logs.model import Topic
+	>>> Topic.objects.all()
+	[<Topic: Statistics>, <Topic: Rock Climbing>]
+	
+	>>> topics = Topic.objects.all()
+	>>> for topic in topics:
+	...	print(topic.id, topic)
+	...
+	1 Statistics
+	2 Rock Climbing
+
+	>>> t = Topic.objects.get(id=1)
+	>>> t.text
+	'Statistics'
+	>>> t.date_added
+	datetime.datetime(2018, 9, 16, .... tzinfo=<UTC>)
+
+	>>> t.entry_set.all()
+	[<Entry: ..... >, <Entry: ..... >]
+
+
