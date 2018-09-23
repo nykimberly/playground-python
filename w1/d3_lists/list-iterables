@@ -1,0 +1,95 @@
+#!/usr/bin/python3
+print("Hello World!")
+
+log_file = open("myfile.txt")
+
+for line in log_file:
+	print(line)
+
+
+stuff = [1, None, 'pretzel', [1, 2], 'pretzel']
+print("stuff pretzel count is", stuff.count('pretzel'))
+
+
+order_numbers = [4108, 4102, 4114]
+n1, n2, n3 = order_numbers
+print("our three numbers are", n1, n2, n3, sep=" ")
+
+
+print("if we want to extend our list,\
+	we should use .extend(list()) instead of .append(list())")
+ingredients = ['mozzarella', 'basil', 'tomatoes']
+ingredients_copy = ingredients[:]
+ingredients_copy.extend(['cheese', 'pineapple'])
+print("extend: ", ingredients_copy)
+ingredients_copy = ingredients[:]
+ingredients_copy.append(['cheese', 'pineapple'])
+print("append: ", ingredients_copy)
+
+
+ingredients_copy = ingredients[:]
+print("original list: ", ingredients)
+print("sort in place: ", ingredients_copy.sort(), ingredients_copy, ingredients)
+print("return the sort: ", sorted(ingredients), ingredients)
+
+
+print("list slicing returns a new list always")
+nums = list(x for x in range(5))
+print("the original list: ", nums)
+print("the first half of the list: ", nums[:len(nums)-1])
+print("the second half of the list: ", nums[len(nums)-1:])
+print("the original list: ", nums)
+
+
+print("original nums: ", nums)
+print("reversed(nums): ", reversed(nums), nums)
+print("nums with copy then nums[::-1]: ", nums[::-1], nums)
+print("nums.reverse(): ", nums.reverse(), nums)
+
+
+animals = ['aardvark', 'bear', 'cow']
+animals[1:3] = ['moose']
+animals = ['aardvark', 'bear', 'cow', 'deer']
+animals[1:-1] = []
+
+
+yay = ['kittens', 'tea', 'tiny ice cream cones']
+for adorable in yay:
+    print("I love", adorable)
+for number in range(5):
+    print(number, "is my favorite number")
+
+
+print("iterators are not lists ")
+print(nums)
+try:
+	num_rev = reversed(nums)[0]
+	print(num_rev)
+except TypeError:
+	print("list_reverseiterator is not subscriptable")
+
+
+print("range is a lazy generator")
+print(range(1, 10))
+print("\
+	>>> type(range(5))\
+	<class 'range'>\
+	>>> nums = [1, 2, 3]\
+	>>> type(nums)\
+	<class 'list'>\
+	>>> type(reversed(nums))\
+	<class 'list_reverseiterator'>\
+")
+
+
+print("iterables")
+
+
+print("enumerate()")
+
+
+print("mutable, iterable, ordered")
+
+
+print("id prints the memory addres sof that object to test mutability")
+

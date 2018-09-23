@@ -1,0 +1,13 @@
+Randint should always return The Answer:
+
+    >>> import random
+    >>> random.randint = lambda a, b: 42
+
+mygame.py
+---------
+
+    >>> import mygame
+    You win! Your score is 42
+
+    >>> mygame.print_score(123)
+    You win! Your score is 123

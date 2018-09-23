@@ -1,0 +1,30 @@
+tuples: iterable, ordered
+	how come we don't use tuples as a CONSTANT?
+
+sets: Iterable, but Unordered
+	sets are nice because they are very fast
+	uses hashing
+
+set math:
+	moods = {'happy', 'sad', 'grumpy'}
+	dwarfs = {'happy', 'grumpy', 'doc'}
+		moods | dwarfs  # {'happy', 'sad', 'grumpy', 'doc'}  # union
+		moods & dwarfs  # {'happy', 'grumpy'}                # intersection
+		moods ^ dwarfs  # {'sad', 'doc'}             		 # symmetric difference
+		moods - dwarfs  # {'sad'}
+		dwarfs - moods  # {'doc'}
+
+	good for syncing, for example
+
+[expression
+ for item in list
+ if condition]
+
+
+big_states = set()
+for population in US_STATES_POPULATIONS:
+    if population > 1000000:
+        big_states.add(population)
+big_states = {population
+              for population in US_STATES_POPULATIONS
+              if population > 1000000}

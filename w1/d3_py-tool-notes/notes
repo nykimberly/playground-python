@@ -1,0 +1,52 @@
+strongly typed, dynamic, high level
+
+strongly typed: can't add str and int
+	PHP and JS may convert it for you
+	however, it can be reassigned to a str if you initially called it as an int
+
+dynamic
+	can create new types and structures as program runs
+	does not need everything to be done during compilation phase
+
+high level
+	operates at a higher levels of abstraction
+
+python compiles to opcodes (.pyc)
+
+python3 -i <file> will throw you into interactive python mode
+
+import argparse
+dir(argparse): shows classes and methods
+type(argparse.__all__): list
+help(argparse.__al__): basically prints the doc strings
+
+style
+'fruits for sale' not 'my list'
+so what it is for, not just what it is
+doc strings should always just be a one line summary
+	when and why to use function
+	comments should be how it works
+
+Constants
+Convention here is to write it in ALL_UPPER_CASE
+	* but it's not really a constant
+
+Put Example Code in Docstrings!
+def calculate_order_cost(price, qty, tax):
+    """Calculate and return total order cost.
+
+    price: individual item cost
+    qty: number of items
+    tax: tax percentage as whole number (ie, 5 for 5%)
+
+    Returns total order cost in US dollars.
+    Does not include shipping.
+
+    For example:
+
+      >>> calculate_order_cost(10, 5, 5)
+      52.5
+    """
+
+sys.argv: The first item (sys.argv[0] is the name of your script)
+The second item (sys.argv[1] is your first argument
