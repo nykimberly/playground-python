@@ -1,0 +1,8 @@
+Test demo file
+	>>> from lettercount import *
+	3
+	>>> d = get_letter_counts("apple")
+	>>> assert d["p"] == 2
+
+	>>> get_count_for_letter(d, 'l')
+	1

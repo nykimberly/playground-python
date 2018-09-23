@@ -1,0 +1,53 @@
+To provide Production Engineers with a framework for planning team engagements, and for monitoring those engagements over time; and
+To help non-Production Engineers understand the role Production Engineers play at Facebook, and how they fit in with larger product and infrastructure teams.
+Overview
+Production Engineers (PEs) and Software Engineers (SWEs) work together at Facebook to build great products and to solve hard problems, benefiting from one another’s differing skill sets and proclivities.
+All engineers care about solving problems. Successful software products require a balance between customer features, back-end features, stability, and performance. Individual engineers often specialize in one or two of these, which is why we need to build teams to cover all of these elements. PEs tend to focus on solving problems related to service stability and performance, partnering with SWEs, who tend to focus on customer and back-end features.
+Production Engineers typically emphasize integration and operations and may be responsible for managing service deployment, interaction, and troubleshooting, efficiently and at scale.
+Successful PEs typically demonstrate the following aptitudes:
+Acute awareness of the implications of scale
+Fluency in building service deployment tools without harming users or clients
+Consideration for operational complexity, both in initial design stages and in ongoing development
+Understanding of which metrics to surface for monitoring and alerting
+Ability to debug issues down to the lowest detail
+These are some of the key problem-solving focus areas that we look for in Production Engineers, in no particular order:
+Reliability
+Capacity planning and scalability
+Disaster and contingency planning
+Deployment, upgrades and configuration management
+Performance, tuning and efficiency.
+If your team has needs in these areas, Production Engineers are usually well positioned to work on, and, ideally, to own these areas of development and operations.
+Different teams inevitably work on these focus areas at different levels and implement their own unique solutions based on their specific needs. Each team must make its own determination as to which of these areas are most important for its circumstances.
+A Model for Comparing and Analyzing Production Engineering
+We have put together a general model for describing Production Engineering teams and their associated Software Engineering teams. PE teams in different areas of the company work on different sets of technologies under different constraints, but they generally fit into the stages described by this model, more or less. The model is primarily intended to help us characterize and understand the status of different teams, not to declare a path that must be followed.
+In this model, "maturity" refers to the degree of formalization and optimization of services and processes at various stages, from *ad hoc*, reactive practices; to development; to formally-defined steps with automation; to managed result metrics; and finally, to active optimization of the services and processes.
+Some Production Engineering teams may not fit this model exactly, but all probably come pretty close. We can refine the model to better fit the data if necessary. It is important that our models fit the data – if models don’t match people's perceptions of what they do, they will be dismissed and will not be useful.
+The scope of responsibility and effectiveness of PE teams depends greatly on three factors:
+Maturity of the PE team and the problems they're solving
+Development level of the SWE software
+Relationship status of the PE & SWE teams
+Each factor is described by a three-point scale below.
+As with other maturity models[1, we should not assume that higher levels or longer engagements are categorically better. “Maturity” in this context should not be confused with the quality, complexity, or impact of a team’s work. High levels of quality and impact may be achieved by teams at low maturity levels.
+At Facebook, we are constantly building out new teams and projects, while others are in a steady state or winding down. We will always have teams in all states of maturity, and will always have individuals who are better-suited to different maturity levels.
+With the exception of the Relationship Status component, this model is only intended to provide a reference for understanding where various teams are situated. Tracking this over time -- say, evaluating team maturity every six months -- could provide very interesting information. For example, this model could inform manager decisions about where to encourage ICs to move, based on how their skills and temperaments relate to different levels of maturity.
+FACTORS IN THE PE MATURITY MODEL
+MATURITY OF PE TEAM'S WORK
+Most PE teams move through each point on this continuum:
+Bootstrapping a service, building it out, making it not fail: Rudimentary capacity planning. Significant operational debt with minimal monitoring and remediation. Software deployments are manual and/or scary. Everyone does what they need to do to make the service work.
+Scaling the service, making it easier to use: Formal capacity planning is introduced, but may be inaccurate. Most common failure cases are monitored and remediated automatically. Deployments are automated with repeatable results, but are still an adventure.
+Making the service awesome: New feature development to handle edge failure cases, "last 5%" of performance/capacity/automation challenges.
+MATURITY OF ASSOCIATED SWE SERVICE
+Generally, all services move through this continuum from brainstorming to fully running in production:
+Building out: New service, small number of users, testing it internally with a beta set of clients. The SWE team is in formative stages and adding people. New systems are being developed to make the service work.
+Initial production deployment: No regular release process - releases are *ad hoc* and may even be months apart. Failures are common. The service may go up and down and may be turned off and on regularly due to scaling issues.
+Full production: Regular release process at a regular cadence. Well-understood failure modes. New failures may come up due to unforeseen issues that manifest at scale over time.
+PE/SWE RELATIONSHIP STATUS
+These stages describe possible relationships between the PE and their partner SWE teams. Unlike the above two factors, there is a qualitative assessment here, and teams at 1 or 2 should be actively thinking about how to get to 3.
+Contentious: SWE and PE teams are at odds about what needs to be done and how to do it. If teams are stuck in this mode, the long-term viability of the team is at risk.
+Orthogonal: SWE and PE teams are not collaborating on projects or amplifying one another’s output, but are also not in conflict. If teams are in this mode, parting ways is likely soon to follow.
+Synergistic: SWE and PE teams complement each other’s output, and enable each other to produce more in concert than they would be able to produce individually. Happiness all around.
+APPENDIX OF TEAM PITCHES
+Because there is no one, single way that PE teams function, we've listed a few “elevator pitches” for various teams in PE, which describe how they see their interactions with the teams they work with, and how they fit into Facebook overall.
+Traffic PE: Operates Facebook's billion-user load balancer which is used to guide traffic to one of the most heavily trafficked sites on the internet. We also run Facebook's edge platform, which we use to place proxies and caches near large user populations that are far from our data centers. We have edge nodes in over 20 cities around the world and use them to accelerate Facebook's network traffic and cache popular image and video content. Since Traffic's services get users from around the world to Facebook's doorstep, there's a lot of interesting problems to solve, and when there are outages or issues with our services, it's very noticeable. We do a nice full stack mix of building new services (Traffic PE built both Cartographer (DNS LB) and Shiv (Layer 4 LB)), adding telemetry and diagnosing perf, and spreading best practices like good deployment machinery, high signal alerts, etc.
+Ads PE: We own the overall production infrastructure environment (hardware, network, traffic, os, pool, dc, cluster, infra product), process (audit, escalation, etc), and architecture (software, deployment, roll out, interconnects, disaster recovery) that provided a solid ground for service owners to focus on building products. Our knowledge and experience in infrastructure, shared infra services, management software stack, service understanding, and overall architecture interaction understanding, helped design and build more reliable, scalable, efficient, operational friendly products and help service owners navigating changes in the production environment. This also makes our team the primary point of contact for infrastructure know hows and liaison to the rest of the infrastructure team. Our team's work in terms of capacity and environment change planning also consistently listed as the top value proposition.
+PE Cache: We ensure that the FB cache infrastructure runs as quickly and efficiently as possible. We build software for utilization analysis, load balancing, deployment and capacity management across two "streams" of focus: (i) ensuring that the infrastructure on which our cache runs and through which it communicates is completely optimized and that it serves requests with latencies on the order of milliseconds (across these services: memcached, TAO, mcrouter, and any other client applications) ; and (ii) the actual (ab)use of the cache itself - looking at the contents of the cache and seeking to optimize the actual use of cache space. We work at the intersection of computer science and ops work, maintaining, administering, and developing the cache infrastructure that keeps facebook.com operational.
