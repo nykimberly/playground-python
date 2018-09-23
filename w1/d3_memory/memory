@@ -1,0 +1,52 @@
+#!/usr/bin/python3
+
+print("python has pointers/references not really variables")
+a = ["hi", "there"]
+b = a
+a.append("yay")
+print(a)
+print(b)
+
+print("\
+	Tiny numbers (0-255): 1 byte\
+	Integers ( ≈ 4.3 billion): 4 bytes\
+	Floating point numbers: 8 bytes\
+	Strings: 1 byte per character\
+")
+
+print("\
+	>>> string = "I am a string"\
+	>>> type(s)\
+	<class 'str'>\
+	>>> byte_string = b"I am a string"\
+	<class 'bytes'>\
+")
+
+# A note on list slicing: list slices are a SHALLOW COPY
+    # In [1]: lst = [{}]
+    # In [2]: lst_copy = lst[:]
+    # In [3]: print(lst_copy)
+    # [{}]
+    # In [4]: lst_copy[0]['foo'] = 'bar'
+    # In [5]: lst_copy
+    # Out[5]: [{'foo': 'bar'}]
+    # In [6]: lst
+    # Out[6]: [{'foo': 'bar'}]
+    # In [7]: id(lst) == id(lst_copy)
+    # Out[7]: False
+    # In [8]: id(lst[0]) == id(lst_copy[0])
+    # Out[8]: True
+
+# To make a DEEP copy, use python's copy module
+    # In [1]: import copy
+    # In [2]: lst = [{}]
+    # In [3]: lst_copy = copy.deepcopy(lst)
+    # In [4]: lst_copy[0]['foo'] = 'bar'
+    # In [5]: lst_copy
+    # Out[5]: [{'foo': 'bar'}]
+    # In [6]: lst
+    # Out[6]: [{}]
+    # In [7]: id(lst) == id(lst_copy)
+    # Out[7]: False
+    # In [8]: id(lst[0]) == id(lst_copy[0])
+    # Out[8]: False
