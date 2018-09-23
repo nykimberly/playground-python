@@ -1,0 +1,30 @@
+Test demo:
+Since this is interactive, let's have a fake input handler:
+
+    >>> import sys
+    >>> def fake_input(prompt):
+    ...     sys.stdout.write(prompt)
+    ...     v = _inputs.pop(0)
+    ...     print(v)
+    ...     return v
+
+    >>> try:
+    ...     import __builtin__ as b    # Python 2
+    ... except ImportError:
+    ...     import builtins as b       # Python 3
+
+    >>> b.raw_input = b.input = fake_input
+
+Making a fake answer:
+
+    >>> _inputs = ["Balloonicorn", "Balloonicorn"]
+
+Test both demo files:
+
+    >>> import user
+    Who are you? Balloonicorn
+    Hello, Balloonicorn
+    Here I am in game.py
+    Who are you? Balloonicorn
+    Hello, Balloonicorn
+
