@@ -1,5 +1,36 @@
-# Interaction between class and instance attributes
+# Method Resolution Order (MRO)
+# Super() similar to parent class but sometimes with multiple inheritances it
+# might not be
 
+class A:
+    def m(self):
+        print("A")
+
+class B(A):
+    def m(self):
+        print("B")
+        super().m()
+
+class C(A):
+    def m(self):
+        print("C")
+        super().m()
+
+class D(B, C):
+    def m(self):
+        print("D")
+
+letter = D()
+letter.m()
+# D
+# B
+# C
+# A
+
+# Instead of DBA, 
+letter.mro() # to show method resolution order
+
+# Interaction between class and instance attributes
 class Animal:
     # class attribute
     hunger = 50
@@ -14,7 +45,6 @@ class Animal:
 dog = Animal("fido")
 
 # Inheritance between superclasses and subclasses
-
 class Animal:
     hunger = 50
 
@@ -39,7 +69,6 @@ astrid = Cat('astrid')
 print(astrid.species)
 
 # leveraging super()'s methods
-
 class FriendlyCat(Cat):
     def greet(self):
         msg = super().greet()
@@ -49,7 +78,6 @@ kimberly = FriendlyCat('kimberly')
 print(kimberly.greet())
 
 # polymorphism
-
 class Animal:
     def __init__(self, name, species):
         self.name = name

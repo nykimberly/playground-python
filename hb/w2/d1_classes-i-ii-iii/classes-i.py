@@ -1,19 +1,33 @@
 #!/Users/kimberlyvnguyen/anaconda3/bin/python3
 
+# We should write classes in uppercase but built in classes may be lower case
+
+# We can use type() to figure out what class an instance belongs to
+
+# Don't change class attributes to avoid instance-class attribute ambiguity
+
+# By convention, start variable with underscore if you want it to be 'private'
+
 class Animal:
     """A living creature"""
+    name = None
     nicknames = []
+
 # Can assign attributes to instances of class
 dog = Animal()
 dog.name = 'fido'
 print(dog.name)
 
-# In the below code, we’re setting nicknames = [] as a class attribute (set directly on the class). This means that all of the instances of Animal will share this list. So, if you made two Animals:
+# Don't give any mutable types to a class attribute due to 'sticky' id
+
+# In the below code, we’re setting nicknames = [] as a class attribute (set directly on the class). 
+# This means that all of the instances of Animal will share this list. So, if you made two Animals:
 fido = Animal()
 snowball = Animal()
 fido.nicknames.append("Woofster")
 print(fido.nicknames)
 print(snowball.nicknames)
+
 # You can prevent this problem by rebinding the nickname for Fido, rather than appending it:
 fido = Animal()
 snowball = Animal()
@@ -52,3 +66,14 @@ getattr(fido, 'tail_length', 'unknown')
     # Methods are defined on a class
     # Methods take self as first argument
     # When you call a method, Python passes instance as self
+
+class Animal:
+
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        print(self.name)
+
+fido = Animal('fido')
+Animal.speak(fido)
