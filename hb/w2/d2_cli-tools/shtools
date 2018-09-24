@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+# showing off some simple sh commands but in a script
+
+echo Hello World!
+grep name ~/.gitconfig 
+	# name = Kimberly Van Anh Nguyen
+
+ls *.py
+	# pytools.py
+
+ls -l
+	# total 72
+	# -rwxr-xr-x@ 1 kimberlyvnguyen  1876110778    224 Sep 23 17:32 pytools
+	# -rw-r--r--@ 1 kimberlyvnguyen  1876110778  25117 Sep 23 17:32 pytools.py
+	# -rwxr-xr-x@ 1 kimberlyvnguyen  1876110778    203 Sep 23 17:30 shtools
+
+# Common optional arguments
+	# --help
+	# -H / --host
+	# -v / --verbose (and/or -d / --debug )
+	# -w / --write (or -c / --commit)
+	# --config
+	# -u / --user
+
+# run executables
+./pytools
+
+# set up a trap for exit 1 and test it out
+trap "echo '\nkimby out! exit code 1'; exit 1" INT
+# CTRL-C on this script to see message 'kimby out'
+sleep 10

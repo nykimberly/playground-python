@@ -1,0 +1,24 @@
+#!/Users/kimberlyvnguyen/anaconda3/bin/python3
+
+# showing off python interaction with sh shell
+
+import sys
+import subprocess
+
+# CLI tools can be useful for
+    # navigating shell
+    # editing files
+    # connecting to servers
+
+from random import choice
+
+print("Hello World!")
+print(choice([1, 2, 3]))
+
+# sys.exit(1) if you want to end program with exit code 1 here
+
+result = subprocess.run('ls')
+if result.returncode == 0:
+    print("ls was successful!")
+
+
