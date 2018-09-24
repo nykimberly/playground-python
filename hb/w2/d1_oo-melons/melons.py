@@ -2,6 +2,7 @@
 
 import random
 import datetime
+import melon_errors
 
 class AbstractMelonOrder():
     """Abstract base class that Melon order inherits from.""" 
@@ -9,6 +10,9 @@ class AbstractMelonOrder():
     def __init__(self, species, qty, order_type, tax):
         self.species = species
         self.qty = qty
+        if self.qty > 100:
+            msg = "Orders cannot be over 100!"
+            raise melon_errors.TooManyMelonsError(msg)
         self.order_type = order_type
         self.tax = tax
         self.shipped = False
@@ -44,6 +48,10 @@ class DomesticMelonOrder(AbstractMelonOrder):
         """Initialize melon order attributes."""
         super().__init__(species, qty, order_type="domestic", tax=0.08)
 
+    def __repr__(self):
+        return f"<DomesticMelonOrder: species={self.species},"\
+                "quantity={self.qty}, shipped={self.shipped}>"
+
 
 class InternationalMelonOrder(AbstractMelonOrder):
     """An international (non-US) melon order."""
@@ -57,6 +65,10 @@ class InternationalMelonOrder(AbstractMelonOrder):
         """Return the country code."""
         return self.country_code
 
+    def __repr__(self):
+        return f"<InternationalMelonOrder: species={self.species},"\
+                "quantity={self.qty}, country_code={self.country_code}, shipped={self.shipped}>"
+
 
 class GovernmentMelonOrder(AbstractMelonOrder):
 
@@ -67,3 +79,11 @@ class GovernmentMelonOrder(AbstractMelonOrder):
 
     def mark_inspection(self, passed):
         self.passed_inspection = bool(passed)
+
+    def __repr__(self):
+        return f"<GovernmentMelonOrder: species={self.species},"\
+                "quantity={self.qty}, inspection={self.passed_inspection},  shipped={self.shipped}>"
+
+
+
+
