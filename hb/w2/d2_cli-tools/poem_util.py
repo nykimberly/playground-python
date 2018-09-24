@@ -69,7 +69,7 @@ def display_poems(poems):
     print("\n")
 
 
-if __main__ == "__main__":
+if __name__ == "__main__":
 
     n = process_arguments(sys.argv)
 
