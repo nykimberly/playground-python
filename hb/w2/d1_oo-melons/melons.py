@@ -6,6 +6,15 @@ import melon_errors
 
 class AbstractMelonOrder():
     """Abstract base class that Melon order inherits from.""" 
+    
+    @staticmethod
+    def get_melon_species_lookup():
+        return {
+            "Muskmelon": "musk",
+            "Casaba": "cas",
+            "Crenshaw": "cren",
+            "Yellow Watermelon": "yw",
+        }
 
     def __init__(self, species, qty, order_type, tax):
         self.species = species
@@ -41,7 +50,18 @@ class AbstractMelonOrder():
         self.shipped = True
 
 
-class DomesticMelonOrder(AbstractMelonOrder):
+class OrderMakerMixin:
+
+    @classmethod
+    def make_orders(cls, orders_list):
+        """Return a list of order objects made from a list of tuples"""
+        orders = []
+        for species, qty in orders_list:
+            orders.append(cls(species, qty))
+        return orders
+
+
+class DomesticMelonOrder(AbstractMelonOrder, OrderMakerMixin):
     """A melon order within the USA."""
 
     def __init__(self, species, qty):
@@ -55,6 +75,13 @@ class DomesticMelonOrder(AbstractMelonOrder):
 
 class InternationalMelonOrder(AbstractMelonOrder):
     """An international (non-US) melon order."""
+
+    @classmethod
+    def make_orders(cls, orders_list):
+        orders = []
+        for species, qty, country_code in orders_list:
+            orders.append(cls(species, qty, country_code))
+        return orders
 
     def __init__(self, species, qty, country_code):
         super().__init__(species, qty, order_type="international", tax=0.17)
@@ -70,7 +97,7 @@ class InternationalMelonOrder(AbstractMelonOrder):
                 "quantity={self.qty}, country_code={self.country_code}, shipped={self.shipped}>"
 
 
-class GovernmentMelonOrder(AbstractMelonOrder):
+class GovernmentMelonOrder(AbstractMelonOrder, OrderMakerMixin):
 
     def __init__(self, species, qty):
         """Initialize melon order attributes."""
@@ -83,7 +110,5 @@ class GovernmentMelonOrder(AbstractMelonOrder):
     def __repr__(self):
         return f"<GovernmentMelonOrder: species={self.species},"\
                 "quantity={self.qty}, inspection={self.passed_inspection},  shipped={self.shipped}>"
-
-
 
 
