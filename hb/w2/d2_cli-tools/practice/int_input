@@ -1,0 +1,14 @@
+#! /usr/bin/env python3
+import argparse
+import sys
+
+# ArgumentParser.add_argument(name or flags...[, action][, nargs][, const][, default][, type][, choices][, required][, help][, metavar][, dest])
+
+def int_args(args=None):
+    parser = argparse.ArgumentParser(description='Process integers.')
+    parser.add_argument('integers', metavar='N', type=int, nargs='+',
+            help='integer args')
+    return parser.parse_args()
+
+if __name__ == '__main__':
+    print(int_args(sys.argv[1:]))

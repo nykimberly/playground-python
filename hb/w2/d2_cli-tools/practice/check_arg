@@ -1,0 +1,23 @@
+#! /usr/bin/env python3
+
+import sys
+import argparse
+
+def check_arg(args=None):
+    # Initialize parser with description
+    parser = argparse.ArgumentParser(description='learn basic argparse')
+    # Add first argument, set it to required
+    parser.add_argument('-H', '--host', help='host ip', required='True',
+            default='localhost')
+    # Add second argument and make it optional with a default value
+    parser.add_argument('-p', '--port', help='port of webserver',
+            default='8080')
+    parser.add_argument('-u', '--user', help='username', default='root')
+    results = parser.parse_args(args)
+    return (results.host, results.port, results.user)
+
+if __name__ == '__main__':
+    h, p, u = check_arg(sys.argv[1:])
+    print('h = ', h)
+    print('p = ', p)
+    print('u = ', u)
