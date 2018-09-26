@@ -21,4 +21,7 @@ result = subprocess.run('ls')
 if result.returncode == 0:
     print("ls was successful!")
 
-
+# more notes
+    # python3 command *.py will provide all .py files to the command argparse
+    # but adding literal string or escape \ will prevent this from happening
+    # ' and " not much difference for * but yes for variable expansion $SHELL
