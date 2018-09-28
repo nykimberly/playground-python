@@ -1,0 +1,235 @@
+last argument from last command to be run
+	$_
+	vim hello.txt
+	ls $_
+
+exit code from most recent command
+	$?
+	echo $?
+
+redirect sterr to stout to also store error info
+python hello.py > output.txt   # stdout to (file)
+python hello.py >> output.txt  # stdout to (file), append
+python hello.py 2> error.log   # stderr to (file)
+python hello.py 2>&1           # stderr to stdout
+python hello.py 2>/dev/null    # stderr to (null)
+python hello.py &>/dev/null    # stdout and stderr to (null)
+
+ls 1>&2 2>/dev/null
+	will not work
+
+ls 2>/dev/null 1>&2
+	will work
+
+cp print_args.py{,.ORIG}
+	will expand to cp print_args.py print_args.py.ORIG
+	cp {source,dest}.txt
+
+expression
+	$(( 1 + 2 ))
+
+variables
+	myvar = $(mycommand)
+
+history | grep scp
+	History commands
+	!somecomand : rerun the last time you used that command
+		ls file.txt
+		!ls
+			ls file.txt
+			file.txt
+	!3: rerun command 3 from your history
+	!-3: rerun 3rd most recent command
+	^R: reverse history search
+
+condition blocks
+	if CONDITION ; then
+	  /* some stuff */
+	elif OTHERCONDITION ; then
+	  /* some other stuff */
+	else
+	  /* the last stuff */
+	fi
+
+	if ls file &>/dev/null; 
+		then echo poem exists; 
+		else echo poem does not; 
+	fi 
+		poem exists
+
+	if ls hello.txt
+	> &>> /dev/null;
+	> then echo exists;
+	> fi
+		exists
+
+# don't remove variable names without checking if they exist!!!
+	-n # means 'length non zero'
+	if [-n $VARIABLE ] ; 
+		then my_command -c $VARIABLE ; 
+		else my_command ; 
+	fi
+	if [ -n $B ];
+		then cd $B;
+		else cd;
+	fi
+
+# file checking
+	-r # permission to read
+~/src$ if [ -w file.txt ]; then echo hello; else echo goodbye; fi
+hello
+~/src$ if [ -x file.txt ]; then echo hello; else echo goodbye; fi
+goodbye
+
+# conditions and testing
+	# Conditions and test
+	# The condition in if statements is actually a command. 
+	# If checks the command’s exit value.
+	# if mycommand; then ...
+	# if [ 1 -lt 2 ]; then ...
+	# if test 1 -lt 2 ; then ...
+	# Common tests:
+	# -eq, -lt, -le, -gt, -ge
+	# Files: -e (exists), -d (is a directory), -w (is writeable), etc
+	# Can use && for and, || for or and ! for not
+	if test -r hello.txt; then echo hello; fi
+	if [ 1 -lt 2 ];
+		> then echo true;
+		> else echo false;
+	> fi
+	true
+
+# for loops and grep
+cat nginx_proxy_error_log
+cat nginx_proxy_error_log | grep 'timed out'
+cat nginx_proxy_error_log | grep 'timed out' | awk '{ print $20 }'
+cat nginx_proxy_error_log | grep 'timed out' | awk '{ print $20 }' | tr -d ','
+cat nginx_proxy_error_log | grep 'timed out' | awk '{ print $20 }' | tr -d ',' | sort
+cat nginx_proxy_error_log | grep 'timed out' | awk '{ print $20 }' | tr -d ',' | sort | uniq
+	grep 'timed out' nginx_proxy_error_log| awk '{print$20}' | tr -d ',' | sort | uniq
+	122.161.165.169
+	163.172.199.101
+	46.183.220.37
+	64.62.224.29
+	66.102.6.234
+	66.102.6.236
+	66.102.6.238
+	66.249.66.204
+	66.249.66.206
+
+╰─ for i in `grep 'timed out' nginx_proxy_error_log| awk '{print$20}' | tr -d ',' | sort | uniq` ; echo $i hi done
+	122.161.165.169 hi done
+	163.172.199.101 hi done
+	46.183.220.37 hi done
+	64.62.224.29 hi done
+	66.102.6.234 hi done
+	66.102.6.236 hi done
+	66.102.6.238 hi done
+	66.249.66.204 hi done
+	66.249.66.206 hi done
+
+seq 10 2 30 to create sequences
+	for i in `seq 10 2 30`; do echo $i ; done
+	for i in {start..end..step}
+
+# chaining commands
+	&& only attempts the subsequent commands if first command fails
+	mkdir mydir && cd mydir && echo "yay"
+
+# foreground and background
+	CTRL-Z = sends command to terminal to suspend process
+	jobs to show all jobs that are running
+	fg [job number] resumes jobs in foreground
+	bg [job number] resumes jon in background
+	& starts in background
+
+# watch
+	watch -n 2 ls
+
+# reset
+	or :q or CTRLD/C
+
+# kill
+	pgrep to grab pattern first and then pkilld$i
+	kill PID: tell process with ID PID to stop, please
+	kill -9 PID: I SAID STOP DAMNIT
+	kill -1 PID: reread your config and reload (by convention)
+	pkill -9 pattern: kill anything that matches this pattern
+	killall -9 name: kill anything by this name	
+
+Signals
+	kill converts 1, 9, etc to signals. Common ones are:
+	1: SIGHUP (usually restart/reload)
+	9: SIGKILL (die, like, NOW)
+	15: SIGTERM (plz stop
+	SIGTSTP: ^Z (caught by bash to suspend)
+	SIGTERM, SIGKILL, SIGHUP, etc
+
+Listing processes
+	ps aux | head... should make sure time is not high
+	ps is the most common way to list process.
+	ps: just show processes in my current session
+	ps a: show PID, TTY, state, CPU time used, and command
+	ps au: include user, CPU and memory usage
+	ps x: show all processes
+	pstree is a more visual way of understanding what’s going on:
+	pstree: show entire process tree
+	pstree -p [STARTPID]: include PIDs, starting at STARTPID if provided
+
+Process states
+	R: running
+	S: sleeping (waiting for something to finish)
+	D: waiting on IO (can’t be killed)
+	Z: ZOMBIE
+
+Resource Utilization
+	top & f shows fields to edit
+	top & s to update change interval
+	top & U to filter by user
+	free -h
+		buffer/cache can drop to zero if sys actually needs it
+	oomkiller linux
+	dmesg = kernel log
+	uptime
+		15:23  up 6 days,  7:04, 6 users, load averages: 2.43 2.39 2.15
+	iostat: how busy hard drive is
+	vmstat (vm_stat in mac)
+	/proc/cpuinfo
+	/proc/net
+	/proc/NNN
+
+awk
+	awk '{print $1}'
+	awk '/opened.*root/ {print $1" "$2" $3}' 
+	awk is actually a pretty powerful file processing language, but can be used in really simple ways too.
+	awk '{print $1}': print first field from a file (usually space separated)
+	awk '/opened.*root/ {print $1" "$2" "$3}' auth.log: print any line containing /pattern/ (opened.*root) in auth.log
+	awk 'BEGIN {count=0} /call trace/i {count++} END {print count}' kern.log : print count of lines that contain call trace (regardless of case) in kern.log
+
+cut
+	cut splits lines based on delimeter and lets print fields
+	cut -d' ' -f1,3 dpkg.log: show first and third space-separated columns in dpkg.log
+	cut -d- -f 1-3 --output-delimiter ' ' dpkg.log: show first through third “-” separated field in dpkg.log, using a space on output.
+
+tr
+	tr will translate a character to another in its input
+	echo hello there class | tr ' ' '\n': replaces spaces with newlines
+	cat myfile.py | tr -d ';': hide the fact that you forgot you were writing Python and used ;‘s everywhere
+	echo -e "hey\n\n\n\nthere" | tr -s '\n' ' ': replace any amount of newline characters with a single space
+	echo "hello there" | tr '[:lower:]' '[:upper:]': go from being polite to obnoxious
+
+sed
+	sed 's/\[.*\]//' apache_access_log	
+	sed allows you to apply regular expression patterns to a file.
+	sed 's/for user root/for user groot/' auth.log: have a cheap laugh and print auth.log to screen with “for user groot” instead of “for user root”
+	sed -i 's/print \(.*\)/print(\1)/' py2.py: update my Python 2 style print statements to Python 3, in place
+	sed -i '/print("DEBUG/d' py2.py: delete all those debug print statements from my file
+
+xargs
+	xargs takes white-space separated text and turns it into parameters to a command.
+	ls -1 | head -n 2 | xargs rm -rf: recursively delete the first two things in current directory (don’t try this at home)
+	grep error logfile | cut -d: -f1 | xargs ssh -I {} ssh {} reboot: reboot any server that showed up in this logfile (assuming its name is before the first ‘:’‘)
+	echo file1 file2 file3 | xargs gunzip: decompress file1, 2 and 3 (presuming they were compressed with gzip first)
+ls *log | xargs -I {} cp {} {}.NEW
+
+
