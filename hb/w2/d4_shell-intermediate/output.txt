@@ -1,0 +1,5 @@
+hello there
+  File "err.py", line 2
+    ;
+    ^
+SyntaxError: invalid syntax
