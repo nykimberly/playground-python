@@ -1,0 +1,140 @@
+#! /usr/bin/env python3
+
+"""A CLI tool for greppy"""
+
+import argparse
+import os
+import json
+import sys
+
+parser = argparse.ArgumentParser(
+        description="CLI tool for for greppy",
+        add_help=False
+)
+
+parser.add_argument(
+        "--help",
+        dest="print_help",
+        action="store_true",
+        help="print documentation for greppy CLI",
+        default=False,
+)
+
+parser.add_argument(
+        "-c",
+        dest="return_count",
+        action="store_true",
+        help="return number of matches",
+        default=False,
+)
+
+parser.add_argument(
+        "-h",
+        dest="suppress_filenames",
+        action="store_true",
+        help="suppress showing filenames",
+        default=False,
+)
+
+parser.add_argument(
+        "-H",
+        dest="show_filenames",
+        action="store_true",
+        help="show filenames",
+        default=False,
+)
+
+parser.add_argument(
+        "-i",
+        dest="case_insensitive",
+        action="store_true",
+        help="make search case insensitive",
+        default=False,
+)
+
+parser.add_argument(
+        "-l",
+        dest="print_only_filenames",
+        action="store_true",
+        help="Only print filenames with matches",
+        default=False,
+)
+
+parser.add_argument(
+        "-o",
+        dest="print_only_matching_pattern",
+        action="store_true",
+        help="prints only matching pattern",
+        default=False,
+)
+
+parser.add_argument(
+        "-r",
+        dest="recursive_matching",
+        action="store_true",
+        help="Search recusrively through listed files",
+        default=False,
+)
+
+parser.add_argument(
+        "-v",
+        dest="reverse_matching",
+        action="store_true",
+        help="print lines that do not match given pattern"
+)
+
+HELP_TEXT = """
+usage: greppy [-c] [-h] [-H] [--help] [-i] [-l] [-o] [-r] [-v]
+              pattern [files [files ...]]
+
+positional arguments:
+  pattern  Pattern to match
+  files    Files in which to search for pattern
+
+optional arguments:
+  -c       Show count of matches
+  -h       Suppress showing filenames
+  -H       Show filenames
+  --help   Show this message.
+  -i       Match regardless of case
+  -l       Only print names of files with matches (or without, if -v).
+  -o       Print only matching pattern.
+  -r       Search recursively through listed files
+  -v       Print lines that do not match given pattern
+  """
+
+if __name__ == "__main__":
+
+    args = parser.parse_args()
+
+    # Search phase
+
+    if args.print_help:
+        print(HELP_TEXT)
+
+    if args.return_count:
+        print("here is the count")
+        return
+
+    if args.suppress_filenames:
+        print("suppressing filenames")
+
+    if args.show_filenames:
+        print("showing filenames")
+
+    if args.case_insensitive:
+        print("allowing for case insensitive matching")
+
+    if args.print_only_filenames:
+        print("printing out filename of matches")
+
+    if args.print_only_matching_pattern:
+        print("print only matching pattern")
+
+    if args.recursive_matching:
+        print("Searching recursively through listed files")
+
+    if args.reverse_matching:
+        print("Returning reverse match")
+
+    # Print phase

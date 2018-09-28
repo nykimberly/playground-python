@@ -1,0 +1,18 @@
+$ ./greppy --help
+usage: greppy [-c] [-h] [-H] [--help] [-i] [-l] [-o] [-r] [-v]
+              pattern [files [files ...]]
+
+positional arguments:
+  pattern  Pattern to match
+  files    Files in which to search for pattern
+
+optional arguments:
+  -c       Show count of matches
+  -h       Suppress showing filenames
+  -H       Show filenames
+  --help   Show this message.
+  -i       Match regardless of case
+  -l       Only print names of files with matches (or without, if -v).
+  -o       Print only matching pattern.
+  -r       Search recursively through listed files
+  -v       Print lines that do not match given pattern

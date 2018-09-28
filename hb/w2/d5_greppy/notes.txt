@@ -1,0 +1,18 @@
+To start the server:
+
+python server.py
+
+The server is running on port 5000, so visit
+
+localhost:5000
+
+TODO:
+- Fix server
+- Finish endpoint
+- Deploy
+- Talk to marketing department 
+
+TODO tomorrow
+1. Research web sockets
+2. Go to grocery store
+3. Deploy
