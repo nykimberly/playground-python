@@ -91,16 +91,16 @@ def set_ratings_filename(args):
     # pull ratings from ratings file, environ var, or config file
     if args.ratings_filename:
         if args.verbosity:
-            print(f"using ratings file {args.ratings_filename}")
+            print(f"---Using ratings file {args.ratings_filename}")
     elif "RATINGS_FILE" in os.environ:
         args.ratings_filename = os.environ["RATINGS_FILE"]
         if args.verbosity:
-            print(f"using ratings file {args.ratings_filename} from env")
+            print(f"---Using ratings file {args.ratings_filename} from env")
     elif args.config_filename:
         config = json.load(open(args.config_filename))
         args.ratings_filename = config["ratings_file"]
         if args.verbosity:
-            print(f"using ratings file {args.ratings_filename} from config")
+            print(f"---Using ratings file {args.ratings_filename} from config")
     else:
         print("please provide ratings file to read from and write to!")
         sys.exit(2)
@@ -112,11 +112,11 @@ if __name__ == "__main__":
 
     # announce verbosity level
     if args.verbosity> 2:
-        print("being as verbose as possible")
+        print("---Being as verbose as possible")
     elif args.verbosity> 1:
-        print("being very verbose")
+        print("---Being very verbose")
     elif args.verbosity:
-        print("being verbose")
+        print("---Being verbose")
 
     # set ratings filename
     set_ratings_filename(args)
@@ -142,7 +142,7 @@ if __name__ == "__main__":
             ratings.add_rating(args.restaurant_name, args.restaurant_rating)
             
             if args.verbosity:
-                print("adding {} with a {} rating to {}".format(
+                print("---Adding {} with a {} rating to {}".format(
                     args.restaurant_name, args.restaurant_rating,
                     args.rating_filename))
 
@@ -162,7 +162,7 @@ if __name__ == "__main__":
             
             # print actions if verbose
             if args.verbosity:
-                print("updating {} with a {} rating to {}".format(
+                print("---Updating {} with a {} rating to {}".format(
                     args.restaurant_name, args.restaurant_rating,
                     args.rating_filename))
 
@@ -188,7 +188,7 @@ if __name__ == "__main__":
 
         # print actions if verbose
         if args.verbosity:
-            print("removing {} from {}".format(args.restaurant_name,
+            print("---Removing {} from {}".format(args.restaurant_name,
                 args.ratings_filename))
 
         ratings.save_to_file(args.ratings_filename, overwrite=True)
@@ -200,7 +200,7 @@ if __name__ == "__main__":
         # if restaurant name is specified, print rating just for that restaurant
         if args.restaurant_name:
             if args.verbosity:
-                print(f"looking up {args.restaurant_name}...")
+                print(f"---Looking up {args.restaurant_name}...")
             try:
                 rating = ratings.get_rating_by_name(args.restaurant_name)
             except rr.NoSuchRestaurantError:
@@ -211,7 +211,7 @@ if __name__ == "__main__":
         # if no restaurant name specified, then print all ratings
         else:
             if args.verbosity:
-                print(f"printing ratings from {args.ratings_filename}")
+                print(f"---Printing ratings from {args.ratings_filename}")
             
             if args.sort_by_rating:
                 def key_f(x): return x.rating
@@ -221,4 +221,3 @@ if __name__ == "__main__":
             for rating in sorted(ratings.ratings, key=key_f,
                     reverse=args.reverse_sort):
                 print(f"{rating.name} is rated a {rating.rating}.")
-            # print_sorted_ratings(ratings, by_rating=args.sort_by_rating, reverse=args.reverse_sort)
