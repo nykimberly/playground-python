@@ -211,7 +211,7 @@ if __name__ == "__main__":
                 print(f"!!! No restaurant named {args.restaurant_name}")
                 sys.exit(2)
 
-            print(f"{rating.name} is rated a {rating.rating}")
+            print(f"\t{rating.name} is rated a {rating.rating}")
 
         # if no restaurant name specified, then print all ratings
         else:
@@ -226,4 +226,4 @@ if __name__ == "__main__":
 
             for rating in sorted(ratings.ratings, key=key_f,
                     reverse=args.reverse_sort):
-                print(f"{rating.name} is rated a {rating.rating}.")
+                print(f"\t{rating.name} is rated a {rating.rating}.")
