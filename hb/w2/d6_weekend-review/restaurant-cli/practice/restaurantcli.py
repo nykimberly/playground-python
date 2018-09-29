@@ -5,9 +5,7 @@ import json
 import sys
 import argparse
 
-# pull in necessary methods
-from restaurantcli_lib import get_ratings, print_rating, print_sorted_ratings
-from restaurantratings import NoSuchRatingsFileError, NoSuchRestaurantError
+import restaurantratings as rr
 
 # Initialize parser with description
 parser = argparse.ArgumentParser(
@@ -73,7 +71,8 @@ parser.add_argument(
 parser.add_argument(
         "restaurant_name",
         action="store",
-        type=int,
+        nargs="?", # one or more
+        type=str,
         help="name of restaurant",
         default=None,
 )
@@ -81,25 +80,30 @@ parser.add_argument(
 parser.add_argument(
         "restaurant_rating",
         action="store",
+        nargs="?", # one or more
         type=int,
         help="rating of restaurant",
         default=None,
+        choices=range(1,6),
 )
 
 def set_ratings_filename(args):
     # pull ratings from ratings file, environ var, or config file
     if args.ratings_filename:
-        if args.verbose:
-            print(f"using ratings file {args.ratings_filename")
+        if args.verbosity:
+            print(f"using ratings file {args.ratings_filename}")
     elif "RATINGS_FILE" in os.environ:
         args.ratings_filename = os.environment("RATINGS_FILE")
-        if args.verbose:
+        if args.verbosity:
             print(f"using ratings file {args.ratings_filename} from env")
-    else:
+    elif args.config_filename:
         config = json.load(open(args.config_filename))
         args.ratings_filename = config["ratings_file"]
-        if args.verbose:
+        if args.verbosity:
             print(f"using ratings file {args.ratings_filename} from config")
+    else:
+        print("please provide ratings file to read from and write to!")
+        sys.exit(2)
 
 if __name__ == "__main__":
 
@@ -107,11 +111,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # announce verbosity level
-    if args.verbose > 2:
+    if args.verbosity> 2:
         print("being as verbose as possible")
-    elif args.verbose > 1:
+    elif args.verbosity> 1:
         print("being very verbose")
-    elif args.verbose:
+    elif args.verbosity:
         print("being verbose")
 
     # set ratings filename
@@ -119,8 +123,8 @@ if __name__ == "__main__":
 
     # create restaurantratings object from ratings file
     try:
-        ratings = get_ratings(args.ratings_filename)
-    except NoSuchRatingsFileError:
+        ratings = rr.RestaurantRatings.get_ratings_from_file(args.ratings_filename)
+    except rr.NoSuchRatingsFileError:
         print("no ratings information by that file name")
         sys.exit(2)
 
@@ -137,7 +141,7 @@ if __name__ == "__main__":
         if args.action == "add":
             ratings.add_rating(args.restaurant_name, args.restaurant_rating)
             
-            if args.verbose:
+            if args.verbosity:
                 print("adding {} with a {} rating to {}".format(
                     args.restaurant_name, args.restaurant_rating,
                     args.rating_filename))
@@ -149,7 +153,7 @@ if __name__ == "__main__":
             # look up by name
             try:
                 rating = ratings.get_rating_by_name(args.restaurant_name)
-            except NoSuchRestaurantError:
+            except rr.NoSuchRestaurantError:
                 print(f"no restaurant named {args.restaurant_name}")
                 sys.exit(2)
 
@@ -157,7 +161,7 @@ if __name__ == "__main__":
             rating.update_rating(args.restaurant_rating)
             
             # print actions if verbose
-            if args.verbose:
+            if args.verbosity:
                 print("updating {} with a {} rating to {}".format(
                     args.restaurant_name, args.restaurant_rating,
                     args.rating_filename))
@@ -165,47 +169,56 @@ if __name__ == "__main__":
             # save to file
             ratings.save_to_file(args.rating_filename, overwrite=True)
 
-        # if action is remove,
-        # then look up by name, remove from ratings object and save to file
-        if args.action == "remove":
+    # if action is remove,
+    # then look up by name, remove from ratings object and save to file
+    elif args.action == "remove":
 
-            # check that a restaurant name to be removed is specified
-            if args.restaurant_name is None:
-                print("please provide restaurant name to delete")
-                parser.print_usage()
-                sys.exit(1)
+        # check that a restaurant name to be removed is specified
+        if args.restaurant_name is None:
+            print("please provide restaurant name to delete")
+            parser.print_usage()
+            sys.exit(1)
 
-            # check that the restaurant name exists in our ratings obj
+        # check that the restaurant name exists in our ratings obj
+        try:
+            ratings.remove_rating_by_name(args.restaurant_name)
+        except rr.NoSuchRestaurantError:
+            print(f"no restaurant named {args.restaurant_name}")
+            sys.exit(2)
+
+        # print actions if verbose
+        if args.verbosity:
+            print("removing {} from {}".format(args.restaurant_name,
+                args.ratings_filename))
+
+        ratings.save_to_file(args.ratings_filename, overwrite=True)
+
+    # if action is to view, 
+    # then walk through ratings object and print each name and rating
+    elif args.action == "view":
+
+        # if restaurant name is specified, print rating just for that restaurant
+        if args.restaurant_name:
+            if args.verbosity:
+                print(f"looking up {args.restaurant_name}...")
             try:
-                ratings.remove_rating_by_name(args.restaurant_name)
-            except NoSuchRestaurantError:
+                rating = ratings.get_rating_by_name(args.restaurant_name)
+            except rr.NoSuchRestaurantError:
                 print(f"no restaurant named {args.restaurant_name}")
                 sys.exit(2)
+            print(f"{rating.name} is rated a {rating.rating}")
 
-            # print actions if verbose
-            if args.verbose:
-                print("removing {} from {}".format(args.restaurant_name,
-                    args.ratings_filename))
-
-            ratings.save_to_file(args.ratings_filename, overwrite=True)
-
-        # if action is to view, 
-        # then walk through ratings object and print each name and rating
-        if args.action == "view":
-
-            # if restaurant name is specified, print rating for that restaurant
-            if args.restaurant_name:
-                if args.verbose:
-                    print(f"looking up {args.restaurant_name}...")
-                try:
-                    rating = ratings.get_rating_by_name(args.restaurant_name)
-                except NoSuchRestaurantError:
-                    print(f"no restaurant named {args.restaurant_name}")
-                    sys.exit(2)
-
-            # if no restaurant name specified, then print all ratings
+        # if no restaurant name specified, then print all ratings
+        else:
+            if args.verbosity:
+                print(f"printing ratings from {args.ratings_filename}")
+            
+            if args.sort_by_rating:
+                def key_f(x): return x.rating
             else:
-                if args.verbose:
-                    print(f"printing ratings from {args.ratings_filename}")
-                print_sorted_ratings(ratings, by_rating=args.sort_by_rating,
-                        reverse=args.reverse_sort)
+                def key_f(x): return x.name
+
+            for rating in sorted(ratings.ratings, key=key_f,
+                    reverse=args.reverse_sort):
+                print(f"{rating.name} is rated a {rating.rating}.")
+            # print_sorted_ratings(ratings, by_rating=args.sort_by_rating, reverse=args.reverse_sort)

@@ -20,8 +20,7 @@ class RestaurantRating:
 
     # print class info
     def __repr__(self):
-        return f"<{self.__class__.__name__}: name={self.name},
-        rating={self.rating}>"
+        return f"<{self.__class__.__name__}: name={self.name}, rating={self.rating}>"
 
 
 class RestaurantRatings:
@@ -40,7 +39,7 @@ class RestaurantRatings:
 
     def remove_rating_by_index(self, index):
         """Remove rating from list by index"""
-        del self.ratings(index)
+        del self.ratings[index]
 
     def remove_rating_by_name(self, restaurant_name):
         """Look up rating obj by name and remove it"""
@@ -74,8 +73,7 @@ class RestaurantRatings:
         """Save existing ratings to a file, overwriting if specified"""
         # check if file exists:
         if os.path.exists(filename) and overwrite is False:
-            raise RatingsFileExistsError(f"{filename} exists! Set overwrite to
-            overwrite")
+            raise RatingsFileExistsError(f"{filename} exists! Set overwrite to overwrite")
         with open(filename, "w") as f:
             for rating in self.ratings:
                 print(rating.name, rating.rating, file=f, sep=":")
