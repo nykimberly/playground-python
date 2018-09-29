@@ -7,7 +7,7 @@ import argparse
 
 # pull in necessary methods
 from restaurantcli_lib import get_ratings, print_rating, print_sorted_ratings
-from ratings import NoSuchRatingsFileError, NoSuchRestaurantError
+from restaurantratings import NoSuchRatingsFileError, NoSuchRestaurantError
 
 # Initialize parser with description
 parser = argparse.ArgumentParser(
