@@ -22,6 +22,8 @@ class RestaurantRating:
     def __repr__(self):
         return f"<{self.__class__.__name__}: name={self.name}, rating={self.rating}>"
 
+    def update_rating(self, new_rating):
+        self.rating = new_rating
 
 class RestaurantRatings:
     """Umbrella object containing list of restaurant objects"""
