@@ -102,7 +102,7 @@ def set_ratings_filename(args):
         if args.verbosity:
             print(f"---Using ratings file {args.ratings_filename} from config")
     else:
-        print("please provide ratings file to read from and write to!")
+        print("!!! Please provide ratings file to read from and write to!")
         sys.exit(2)
 
 if __name__ == "__main__":
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     try:
         ratings = rr.RestaurantRatings.get_ratings_from_file(args.ratings_filename)
     except rr.NoSuchRatingsFileError:
-        print("no ratings information by that file name")
+        print("!!! No ratings information by that file name")
         sys.exit(2)
 
     # respond to action commands
@@ -133,7 +133,7 @@ if __name__ == "__main__":
 
         # check if necessary files have been provided to cli
         if args.restaurant_name is None or args.restaurant_rating is None:
-            print(f"must provide name and rating")
+            print(f"!!! Must provide name and rating")
             parser.print_usage()
             sys.exit(1)
 
@@ -156,7 +156,7 @@ if __name__ == "__main__":
             try:
                 rating = ratings.get_rating_by_name(args.restaurant_name)
             except rr.NoSuchRestaurantError:
-                print(f"no restaurant named {args.restaurant_name}")
+                print(f"!!! No restaurant named {args.restaurant_name}")
                 sys.exit(2)
 
             # update rating
@@ -177,7 +177,7 @@ if __name__ == "__main__":
 
         # check that a restaurant name to be removed is specified
         if args.restaurant_name is None:
-            print("please provide restaurant name to delete")
+            print("!!! Please provide restaurant name to delete")
             parser.print_usage()
             sys.exit(1)
 
@@ -185,7 +185,7 @@ if __name__ == "__main__":
         try:
             ratings.remove_rating_by_name(args.restaurant_name)
         except rr.NoSuchRestaurantError:
-            print(f"no restaurant named {args.restaurant_name}")
+            print(f"!!! No restaurant named {args.restaurant_name}")
             sys.exit(2)
 
         # print actions if verbose
@@ -201,20 +201,24 @@ if __name__ == "__main__":
 
         # if restaurant name is specified, print rating just for that restaurant
         if args.restaurant_name:
+
             if args.verbosity:
                 print(f"---Looking up {args.restaurant_name}...")
+
             try:
                 rating = ratings.get_rating_by_name(args.restaurant_name)
             except rr.NoSuchRestaurantError:
-                print(f"no restaurant named {args.restaurant_name}")
+                print(f"!!! No restaurant named {args.restaurant_name}")
                 sys.exit(2)
+
             print(f"{rating.name} is rated a {rating.rating}")
 
         # if no restaurant name specified, then print all ratings
         else:
+
             if args.verbosity:
                 print(f"---Printing ratings from {args.ratings_filename}")
-            
+
             if args.sort_by_rating:
                 def key_f(x): return x.rating
             else:
