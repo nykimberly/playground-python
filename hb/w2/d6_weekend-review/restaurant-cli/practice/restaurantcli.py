@@ -5,6 +5,10 @@ import json
 import sys
 import argparse
 
+# pull in necessary methods
+from restaurantcli_lib import get_ratings, print_rating, print_sorted_ratings
+from ratings import NoSuchRestaurantError
+
 # Initialize parser with description
 parser = argparse.ArgumentParser(
         description="CLI tool for Restaurant Ratings"
@@ -81,3 +85,19 @@ parser.add_argument(
         help="rating of restaurant",
         default=None,
 )
+
+def set_ratings_filename(args):
+    # pull ratings from ratings file, environ var, or config file
+    if args.ratings_filename:
+        if args.verbose:
+            print(f"using ratings file {args.ratings_filename")
+    elif "RATINGS_FILE" in os.environ:
+        args.ratings_filename = os.environment("RATINGS_FILE")
+        if args.verbose:
+            print(f"using ratings file {args.ratings_filename} from env")
+    else:
+        config = json.load(open(args.config_filename))
+        args.ratings_filename = config["ratings_file"]
+        if args.verbose:
+            print(f"using ratings file {args.ratings_filename} from config")
+
