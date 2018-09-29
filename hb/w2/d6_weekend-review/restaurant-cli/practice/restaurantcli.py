@@ -93,7 +93,7 @@ def set_ratings_filename(args):
         if args.verbosity:
             print(f"using ratings file {args.ratings_filename}")
     elif "RATINGS_FILE" in os.environ:
-        args.ratings_filename = os.environment("RATINGS_FILE")
+        args.ratings_filename = os.environ["RATINGS_FILE"]
         if args.verbosity:
             print(f"using ratings file {args.ratings_filename} from env")
     elif args.config_filename:
