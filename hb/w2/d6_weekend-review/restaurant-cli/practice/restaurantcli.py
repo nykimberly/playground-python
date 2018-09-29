@@ -144,11 +144,13 @@ if __name__ == "__main__":
             if args.verbosity:
                 print("---Adding {} with a {} rating to {}".format(
                     args.restaurant_name, args.restaurant_rating,
-                    args.rating_filename))
+                    args.ratings_filename))
+
+            ratings.save_to_file(args.ratings_filename, overwrite=True)
 
         # if action is update,
         # then look up by name, update ratings obj, and save to file
-        if args.action == "update":
+        elif args.action == "update":
 
             # look up by name
             try:
@@ -164,10 +166,10 @@ if __name__ == "__main__":
             if args.verbosity:
                 print("---Updating {} with a {} rating to {}".format(
                     args.restaurant_name, args.restaurant_rating,
-                    args.rating_filename))
+                    args.ratings_filename))
 
             # save to file
-            ratings.save_to_file(args.rating_filename, overwrite=True)
+            ratings.save_to_file(args.ratings_filename, overwrite=True)
 
     # if action is remove,
     # then look up by name, remove from ratings object and save to file
