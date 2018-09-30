@@ -77,9 +77,15 @@ class RestaurantRatingsTests(TestCase):
         ])
 
     def test_init(self):
-        ratings = rr.RestaurantRatings()
-        self.assertEqual(ratings.ratings, [])
+        rrobj = rr.RestaurantRatings()
+        self.assertEqual(len(rrobj.ratings), 0)
+        self.assertEqual(rrobj.ratings, [])
 
+    def test_init_with_source(self):
+        rrobj = rr.RestaurantRatings([rr.RestaurantRating("The Tavern", 10)])
+        self.assertEqual(len(rrobj.ratings), 1)
+        self.assertEqual(rrobj.ratings[0].name, "The Tavern")
+        self.assertEqual(rrobj.ratings[0].rating, 10)
 
 if __name__ == "__main__":
 
