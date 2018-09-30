@@ -72,18 +72,30 @@ parser.add_argument(
 
 parser.add_argument(
         "pattern",
-        action="store",
-        dest="pattern",
         type=str,
         help="Match pattern",
 )
 
 parser.add_argument(
         "filenames",
-        action="store",
-        dest="filenames",
         type=str,
         nargs="*",
         help="Files to search",
 )
 
+if __name__ == "__main__":
+
+    # Is there a way to catch the requirement error and allow users to just do
+    # greppy --help without providing a pattern and file?
+    args = parser.parse_args()
+
+    # If -h specified, show help and exit
+    if args.show_help:
+        parser.print_help()
+        exit(0)
+
+    # Create re object
+    if args.case_insensitive:
+        args.pattern = "(?i)" + args.pattern
+
+    pattern = re.compile(args.pattern)
