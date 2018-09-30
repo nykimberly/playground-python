@@ -8,6 +8,7 @@ import argparse
 import json
 import greppy_lib as gl
 
+
 # Initialize parser with description
 parser = argparse.ArgumentParser(
         description="Greppy is a CLI tool for grep-ish actions",
@@ -91,6 +92,7 @@ parser.add_argument(
         help="Files to search",
 )
 
+
 if __name__ == "__main__":
 
     # Is there a way to catch the requirement error and allow users to just do
@@ -111,15 +113,20 @@ if __name__ == "__main__":
     # Resolve files recursively
     args.filenames = gl.get_files(args.filenames, args.recursive)
 
+    # if show filenames is specified, keep as true;
+    # no need to check other conditions
     if args.show_filenames:
         pass
 
+    # don't show filenames if suppress flat is provided
     elif args.suppress_filenames:
         args.show_filenames = False
 
+    # even if no show filenames flag, we want to show filenames if more than one file
     elif args.recursive or len(args.filenames) > 1:
         args.show_filenames = True
 
+    # if only one file and show_filenames flag not provided, then don't show
     else:
         args.show_filenames = False
 

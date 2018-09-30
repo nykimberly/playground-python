@@ -1,27 +1,28 @@
 import os
 import re
 
+
 def get_files(filenames, recursive=False):
     """Convert  a list of files and directories to list of files"""
+
     resolved_files = []
 
-    # BFS traversal through subdirectories and files
-    while filenames:
-        cur_filename = os.path.abspath(filenames.pop(0))
+    for filename in filenames:
+        if recursive:
+            for root, dirs, files in os.walk(filename, topdown=False):
+               for name in files:
+                    resolved_files.append(os.path.join(root, name))
+        else:
+            if os.path.isfile(filename):
+                resolved_files.append(filename)
 
-        if cur_filename.endswith('.swp') or cur_filename.endswith('pyc'):
-            continue
+    if len(resolved_files) < 1:
+        print(f"!!! No Files found. Please provide files to search through."\
+                "\nIf you are providing a directory, please set -r to recurse"\
+                "\nNow entering stdin...")
 
-        if os.path.isfile(cur_filename):
-            resolved_files.append(cur_filename)
-
-        elif os.path.isdir(cur_filename):
-           files_in_dir = os.listdir(cur_filename)
-           paths = [os.path.join(cur_filename, f) for f in files_in_dir]
-           filenames.extend(paths)
-
-    print(resolved_files)
     return resolved_files
+
 
 def process_file_handle(show_count, suppress_filenames, show_filenames,
         case_insensitive, files_only, pattern_only, inverse, pattern,
@@ -36,7 +37,7 @@ def process_file_handle(show_count, suppress_filenames, show_filenames,
         if matches and not inverse:
 
             if files_only:
-                print(relpath)
+                print(f"{relpath}:", end="\n")
                 return
 
             elif pattern_only:
@@ -47,10 +48,10 @@ def process_file_handle(show_count, suppress_filenames, show_filenames,
                 count += 1
 
             elif show_filenames:
-                print(relpath, line, sep=":", end=" ")
+                print(relpath, line, sep=":", end="")
 
-            else:
-                print(line, end="")
+            # else:
+                # print(line, end="")
 
     if show_count:
 
