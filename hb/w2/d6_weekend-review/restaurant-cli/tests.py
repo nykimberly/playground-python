@@ -44,6 +44,26 @@ class RestaurantRatingTests(TestCase):
         rating.update_rating(2)
         self.assertEqual(rating.rating, 2)
 
+    def test_eq_true(self):
+        rating_1 = rr.RestaurantRating("The Tavern", 10)
+        rating_2 = rr.RestaurantRating("Gastropub", 10)
+        self.assertEqual(rating_1, rating_2)
+
+    def test_eq_false(self):
+        rating_1 = rr.RestaurantRating("The Tavern", 10)
+        rating_2 = rr.RestaurantRating("Gastropub", 9)
+        self.assertNotEqual(rating_1, rating_2)
+
+    def test_lt_true(self):
+        rating_1 = rr.RestaurantRating("The Tavern", 9)
+        rating_2 = rr.RestaurantRating("Gastropub", 10)
+        self.assertLess(rating_1, rating_2)
+
+    def test_lt_false(self):
+        rating_1 = rr.RestaurantRating("The Tavern", 10)
+        rating_2 = rr.RestaurantRating("Gastropub", 9)
+        self.assertFalse(rating_1 < rating_2)
+
 
 if __name__ == "__main__":
 
