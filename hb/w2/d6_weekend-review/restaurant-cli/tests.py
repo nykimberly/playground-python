@@ -70,7 +70,7 @@ class RestaurantRatingsTests(TestCase):
 
     def setUp(self):
         """Set up sub-objects for RestaurantRatings tests"""
-        self.ratings = rr.RestaurantRatings([
+        self.rrobj = rr.RestaurantRatings([
             rr.RestaurantRating("The Tavern", 10),
             rr.RestaurantRating("Gastropub", 9),
             rr.RestaurantRating("Snack Shack", 5)
@@ -86,6 +86,13 @@ class RestaurantRatingsTests(TestCase):
         self.assertEqual(len(rrobj.ratings), 1)
         self.assertEqual(rrobj.ratings[0].name, "The Tavern")
         self.assertEqual(rrobj.ratings[0].rating, 10)
+
+    def test_add_rating(self):
+        self.rrobj.add_rating("Kimberly's", 5)
+        self.assertEqual(len(self.rrobj.ratings), 4)
+        self.assertEqual(self.rrobj.ratings[3].name, "Kimberly's")
+        self.assertEqual(self.rrobj.ratings[3].rating, 5)
+
 
 if __name__ == "__main__":
 
