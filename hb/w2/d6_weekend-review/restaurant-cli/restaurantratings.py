@@ -45,7 +45,7 @@ class RestaurantRatings:
 
     def remove_rating_by_name(self, restaurant_name):
         """Look up rating obj by name and remove it"""
-        for i, rating in enumerate(self, ratings):
+        for i, rating in enumerate(self.ratings):
             if rating.name == restaurant_name:
                 self.remove_rating_by_index(i)
                 # exit program once found

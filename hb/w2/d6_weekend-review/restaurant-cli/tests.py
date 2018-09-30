@@ -93,6 +93,17 @@ class RestaurantRatingsTests(TestCase):
         self.assertEqual(self.rrobj.ratings[3].name, "Kimberly's")
         self.assertEqual(self.rrobj.ratings[3].rating, 5)
 
+    def test_get_rating_by_name(self):
+        restaurant_rating = self.rrobj.get_rating_by_name("The Tavern")
+        self.assertEqual(restaurant_rating.name, "The Tavern")
+        self.assertEqual(restaurant_rating.rating, 10)
+
+    def test_remove_rating_by_name(self):
+        self.rrobj.remove_rating_by_name("The Tavern")
+        self.assertEqual(len(self.rrobj.ratings), 2)
+        self.assertEqual(self.rrobj.ratings[0].name, "Gastropub")
+        self.assertEqual(self.rrobj.ratings[1].name, "Snack Shack")
+
 
 if __name__ == "__main__":
 
