@@ -104,6 +104,13 @@ class RestaurantRatingsTests(TestCase):
         self.assertEqual(self.rrobj.ratings[0].name, "Gastropub")
         self.assertEqual(self.rrobj.ratings[1].name, "Snack Shack")
 
+    def test_remove_rating_by_index(self):
+        self.rrobj.remove_rating_by_index(1)
+        self.assertEqual(len(self.rrobj.ratings), 2)
+        self.assertEqual(self.rrobj.ratings[1].name, "Snack Shack")
+        self.assertEqual(self.rrobj.ratings[1].rating, 5)
+
+
 
 if __name__ == "__main__":
 
