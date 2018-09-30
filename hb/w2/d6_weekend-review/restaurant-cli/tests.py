@@ -110,6 +110,9 @@ class RestaurantRatingsTests(TestCase):
         self.assertEqual(self.rrobj.ratings[1].name, "Snack Shack")
         self.assertEqual(self.rrobj.ratings[1].rating, 5)
 
+    def get_rating_by_name_error(self):
+        with self.assertRaises(NoSuchRestaurantError):
+            self.rrobj.get_rating_by_name("Not a Restaurant")
 
 
 if __name__ == "__main__":
