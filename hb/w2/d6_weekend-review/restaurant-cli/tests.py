@@ -65,6 +65,22 @@ class RestaurantRatingTests(TestCase):
         self.assertFalse(rating_1 < rating_2)
 
 
+class RestaurantRatingsTests(TestCase):
+    """Tests for the RestaurantRatingsTests umbrella objects"""
+
+    def setUp(self):
+        """Set up sub-objects for RestaurantRatings tests"""
+        self.ratings = rr.RestaurantRatings([
+            rr.RestaurantRating("The Tavern", 10),
+            rr.RestaurantRating("Gastropub", 9),
+            rr.RestaurantRating("Snack Shack", 5)
+        ])
+
+    def test_init(self):
+        ratings = rr.RestaurantRatings()
+        self.assertEqual(ratings.ratings, [])
+
+
 if __name__ == "__main__":
 
     import unittest
