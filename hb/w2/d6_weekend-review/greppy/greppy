@@ -6,6 +6,7 @@ import sys
 import re
 import argparse
 import json
+import greppy_lib as gl
 
 # Initialize parser with description
 parser = argparse.ArgumentParser(
@@ -64,6 +65,13 @@ parser.add_argument(
 )
 
 parser.add_argument(
+        "-r",
+        action="store_true",
+        dest="recursive",
+        help="Search recursively through listed files",
+)
+
+parser.add_argument(
         "-v",
         action="store_true",
         dest="inverse",
@@ -99,3 +107,38 @@ if __name__ == "__main__":
         args.pattern = "(?i)" + args.pattern
 
     pattern = re.compile(args.pattern)
+
+    # Resolve files recursively
+    args.filenames = gl.get_files(args.filenames, args.recursive)
+
+    if args.show_filenames:
+        pass
+
+    elif args.suppress_filenames:
+        args.show_filenames = False
+
+    elif args.recursive or len(args.filenames) > 1:
+        args.show_filenames = True
+
+    else:
+        args.show_filenames = False
+
+    # if there are files, read them
+    if args.filenames:
+
+        for filename in args.filenames:
+
+            with open(filename) as f:
+                gl.process_file_handle(args.show_count, args.suppress_filenames,
+                        args.show_filenames, args.case_insensitive,
+                        args.files_only, args.pattern_only, args.inverse,
+                        pattern, f)
+
+    # else, read from stdin
+    else:
+        args.show_filenames = False
+        gl.process_file_handle(args.show_count, args.suppress_filenames,
+                args.show_filenames, args.case_insensitive,
+                args.files_only, args.pattern_only, args.inverse,
+                pattern, sys.stdin)
+
