@@ -39,6 +39,11 @@ class RestaurantRatingTests(TestCase):
         self.assertEqual(rating.name, "The Tavern")
         self.assertEqual(rating.rating, 10)
 
+    def test_update_rating(self):
+        rating = rr.RestaurantRating("The Tavern", 10)
+        rating.update_rating(2)
+        self.assertEqual(rating.rating, 2)
+
 
 if __name__ == "__main__":
 
