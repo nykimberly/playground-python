@@ -13,8 +13,8 @@ class CLITestCase(TestCase):
         ])
 
     def test_get_ratings(self):
-        
         # Create mock method that returns ratings attr
+
         def mock_get_ratings_from_file(filename):
             return self.ratings
 
@@ -31,6 +31,17 @@ class CLITestCase(TestCase):
         self.assertEqual(ratings.ratings[1].rating, 7)
 
 
+class RestaurantRatingTests(TestCase):
+    """Tests for individual restaurant rating objects"""
+
+    def test_init(self):
+        rating = rr.RestaurantRating("The Tavern", 10)
+        self.assertEqual(rating.name, "The Tavern")
+        self.assertEqual(rating.rating, 10)
+
+
 if __name__ == "__main__":
+
+    import unittest
 
     unittest.main()
