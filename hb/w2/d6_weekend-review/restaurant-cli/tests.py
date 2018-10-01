@@ -115,6 +115,26 @@ class RestaurantRatingsTests(TestCase):
             self.rrobj.get_rating_by_name("Not a Restaurant")
 
 
+class MockedFileRestaurantRatingsTests(TestCase):
+    """Mock our save to file test case"""
+
+    def test_save_to_file(self):
+        mockobj = mock.mock_open()
+        rrobj = rr.RestaurantRatings([
+            rr.RestaurantRating("The Tavern", 10)
+        ])
+
+        with mock.patch("builtins.open", mockobj) as mock_f:
+            rrobj.save_to_file("mockfile")
+
+        mockobj.assert_called_once_with("mockfile", "w")
+        mockobj().write.assert_has_calls([
+            mock.call("The Tavern"),
+            mock.call(":"),
+            mock.call("10"),
+        ])
+
+
 if __name__ == "__main__":
 
     import unittest
