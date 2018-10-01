@@ -11,7 +11,7 @@ class HomemadeHash:
         self._items = [None for i in range(self._size)]
         self._used_slots = 0
 
-    def _get_slot(self, key, attempt):
+    def _get_slot(self, key):
         """Probes for slot value of a given key"""
 
         slot = abs(hash(key) % len(self._items)) + attempt
@@ -31,6 +31,14 @@ class HomemadeHash:
             existing_key = self._items[bucket][0]
             dprint(f"Slot {slot} for key {key} already in use by {existing_key}")
             raise SlotInUseError
+
+    def __contains__(self, key):
+        """Used by '{key} in {dict}', returns True/False"""
+        dprint(f"Checking if {key} exists in dictionary")
+        slot = self._get_slot(self, key)
+        if self._items[slot] is None:
+            return False
+        return True
 
 class SlotInUseError(ValueError):
     """Error if hashed slot is already in use"""
