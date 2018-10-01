@@ -1,0 +1,31 @@
+Linked Lists
+
+	Overview
+		LinkedList.head, tail, nitems (practical)
+		LinkedList.head (interview)
+
+	Get item by index O(n)
+		Requires walking the list to that index value
+
+	Adding at end O(1)
+		Update next of current tail to new node
+		Update tail attribute to new noe
+
+	Adding to start O(1)
+		Update head to new node
+		Connect new node to old head
+
+	Removing from start O(1)
+		Point head to current head's next
+
+	Removing from end O(n)
+		Must walk through whole list to get to last item
+		Update second last item to none
+		Update tail attr to second last item
+
+
+Doubly-Linked Lists
+
+	Removing at end is only O(1)
+		This is because we can jump straight to tail from tail attr
+		Then walk one step backward to disconnect node

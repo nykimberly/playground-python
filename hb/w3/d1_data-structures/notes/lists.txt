@@ -1,0 +1,28 @@
+List
+
+	Overview
+		Python allocates contiguous space for items
+			Python pre-allocates extra space to grow
+		Each block in list is just a pointer (all are same width)
+
+	Indexing a list O(1)
+		Pulling value at particular index is O(1)
+		index number * width
+
+	Appending to a list O(1)
+		Appending a value is O(1) since we just multiply len to width
+
+	Removing from end O(1)
+		Similar to append, run to the end, and remove pointer to value
+		Garbage collection will delete that value
+		Number items gets updated
+
+	Inserting at start/middle O(n)
+		Every pointer after change point is adjusted to new value in memory
+		Number items gets updated
+
+	Removing from start/middle O(n)
+		Similarly, every pointer after change point needs to be adjusted
+		Number items gets updated
+		Garbage collection removes unused value
+
