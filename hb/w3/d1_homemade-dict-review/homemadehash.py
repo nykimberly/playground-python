@@ -49,7 +49,7 @@ class HomemadeHash:
         self._used_slots -= 1
 
     def __eq__(self, other):
-        """Returns value with key if it exists or keyerror otherwise"""
+        """Returns whether two instances are equal"""
         # eliminate incorrectly sized lists right away
         if len(self) != len(other):
             return False
@@ -66,6 +66,14 @@ class HomemadeHash:
                 return False
 
         return True
+
+    def __getitem__(self, key):
+        """Returns value with key if it exists or keyerror otherwise"""
+        dprint(f"Getting key: {key}f")
+        slot = self._get_slot(key)
+        if self._items[slot] is None:
+            raise KeyError
+        return self._items[slot][1]
 
     def keys(self):
         """Return list of keys in dictionary"""
