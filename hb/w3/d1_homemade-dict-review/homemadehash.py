@@ -40,6 +40,14 @@ class HomemadeHash:
             return False
         return True
 
+    def __delitem__(self, key):
+        """Removes 'key' from dictionary's keys"""
+        slot = self._get_slot(key)
+        if self._items[slot] is None:
+            raise KeyError
+        self._items[slot] = None
+        self._used_slots -= 1
+
 class SlotInUseError(ValueError):
     """Error if hashed slot is already in use"""
 
