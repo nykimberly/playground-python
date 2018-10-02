@@ -17,7 +17,7 @@ class HomemadeHash:
 
     def __contains__(self, key):
         """Used by '{key} in {dict}', returns True/False"""
-        dprint(f"Checking if {key} exists in dictionary")
+        print(f"Checking if {key} exists in dictionary")
         slot = self._get_slot(self, key)
         if self._items[slot] is None:
             return False
@@ -33,8 +33,9 @@ class HomemadeHash:
 
     def __eq__(self, other):
         """Returns whether two instances are equal"""
+        print("Returns whether two instances are equal")
         # eliminate incorrectly sized lists right away
-        if len(self) != len(other):
+        if len(self.items()) != len(other.items()):
             return False
         # now compare keys using set operations
         self_keys = set(self.keys())
@@ -48,7 +49,7 @@ class HomemadeHash:
 
     def __getitem__(self, key):
         """Returns value with key if it exists or keyerror otherwise"""
-        dprint(f"Getting key: {key}f")
+        print(f"Getting key: {key}")
         slot = self._get_slot(key)
         if self._items[slot] is None:
             raise KeyError
@@ -61,20 +62,20 @@ class HomemadeHash:
             self._used_slots += 1
         self._items[slot] = (key, value)
 
-    def _get_slot(self, key, attempt):
+    def _get_slot(self, key, attempt=0):
         """Probes for slot value of a given key"""
         slot = abs(hash(key) % len(self._items)) + attempt
         if slot >= len(self._items):
             slot -= len(self._items)
         if self._items[slot] is None:
-            dprint(f"Slot {slot} for key {key} availble")
+            print(f"Slot {slot} for key {key} availble")
             return slot
         elif self._items[slot][0] == key:
-            dprint(f"Slot {slot} for key {key} already used by {key}")
+            print(f"Slot {slot} for key {key} used by {key}")
             return slot
         else:
             existing_key = self._items[bucket][0]
-            dprint(f"Slot {slot} for key {key} already in use by {existing_key}")
+            print(f"Slot {slot} for key {key} already in use by {existing_key}")
             raise SlotInUseError
 
     def get(self, key, default=None):
