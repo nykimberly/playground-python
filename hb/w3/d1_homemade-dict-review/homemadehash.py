@@ -51,6 +51,11 @@ class HomemadeHash:
                 return False
         return True
 
+    def __iter__(self):
+        """Returns key iterator"""
+        return iter(self.keys())
+
+
     def __getitem__(self, key):
         """Returns value with key if it exists or keyerror otherwise"""
         print(f"Getting key: {key}")
@@ -145,3 +150,8 @@ if __name__ == "__main__":
     print(h_b.keys())
     print(h_b.values())
     print(h_b.items())
+
+    # iteration
+    print("---iterating through dictionary:")
+    for key, value in h_b.items():
+        print(f"key: {key}, value: {value}")
