@@ -88,6 +88,14 @@ class HomemadeHash:
         """Return list of keys in dictionary"""
         return [item[0] for item in self._items if item is not None]
 
+    def values(self):
+        """Return list of values in dictionary"""
+        return [item[1] for item in self._items if item is not None]
+
+    def items(self):
+        """Return list of items in dictionary"""
+        return [item for item in self._items if item is not None]
+
 
 class SlotInUseError(ValueError):
     """Error if hashed slot is already in use"""
