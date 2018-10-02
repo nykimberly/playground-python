@@ -11,6 +11,10 @@ class HomemadeHash:
         self._items = [None for i in range(self._size)]
         self._used_slots = 0
 
+    def __repr__(self):
+        return f"I am a homemade hashmap of size {self._size},"\
+        f"{len(self._items)} items, and {self._used_slots} used slots."
+
     def __len__(self):
         """Returns length of used slots"""
         return len(self._used_slots)
@@ -105,4 +109,17 @@ class NoAvailableSlotError(ValueError):
     """Error if there are no more slots available"""
 
 if __name__ == "__main__":
-    hh = HomemadeHash()
+
+    # Initialization
+    h_a = HomemadeHash()
+    h_b = HomemadeHash()
+    print(f"---repr: {h_a}")
+    print(f"---repr: {h_b}")
+
+    # Equality
+    h_a["zero"] = 0
+    h_b["zero"] = 0
+    print(f"---equality: {h_a.__eq__(h_b)}")
+    print(f"---equality: {h_a == h_b}")
+
+
