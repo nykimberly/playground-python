@@ -11,6 +11,10 @@ class HomemadeHash:
         self._items = [None for i in range(self._size)]
         self._used_slots = 0
 
+    def __len__(self):
+        """Returns length of used slots"""
+        return len(self._used_slots)
+
     def __contains__(self, key):
         """Used by '{key} in {dict}', returns True/False"""
         dprint(f"Checking if {key} exists in dictionary")
