@@ -77,6 +77,13 @@ class HomemadeHash:
             dprint(f"Slot {slot} for key {key} already in use by {existing_key}")
             raise SlotInUseError
 
+    def get(self, key, default=None):
+        """Returns the value for key or fallback to None"""
+        try:
+            return self.__getote,__(key)
+        except KeyError:
+            return default
+
     def keys(self):
         """Return list of keys in dictionary"""
         return [item[0] for item in self._items if item is not None]
