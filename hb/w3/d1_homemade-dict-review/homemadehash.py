@@ -78,14 +78,14 @@ class HomemadeHash:
             print(f"Slot {slot} for key {key} used by {key}")
             return slot
         else:
-            existing_key = self._items[bucket][0]
+            existing_key = self._items[slot][0]
             print(f"Slot {slot} for key {key} already in use by {existing_key}")
             raise SlotInUseError
 
     def get(self, key, default=None):
         """Returns the value for key or fallback to None"""
         try:
-            return self.__getote,__(key)
+            return self.__getitem__(key)
         except KeyError:
             return default
 
@@ -122,4 +122,26 @@ if __name__ == "__main__":
     print(f"---equality: {h_a.__eq__(h_b)}")
     print(f"---equality: {h_a == h_b}")
 
+    # Add, delete, reassign + print keys, values, items
+    print("---addition:")
+    h_a["one"] = 1
+    print(h_a.keys())
+    print(h_a.values())
+    print(h_a.items())
 
+    h_b["one"] = 2
+    print(h_b.keys())
+    print(h_b.values())
+    print(h_b.items())
+
+    print("---deletion:")
+    del h_a["one"]
+    print(h_a.keys())
+    print(h_a.values())
+    print(h_a.items())
+
+    print("---reassignment:")
+    h_b["one"] = 1
+    print(h_b.keys())
+    print(h_b.values())
+    print(h_b.items())
