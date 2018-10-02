@@ -11,27 +11,6 @@ class HomemadeHash:
         self._items = [None for i in range(self._size)]
         self._used_slots = 0
 
-    def _get_slot(self, key):
-        """Probes for slot value of a given key"""
-
-        slot = abs(hash(key) % len(self._items)) + attempt
-
-        if slot >= len(self._items):
-            slot -= len(self._items)
-
-        if self._items[slot] is None:
-            dprint(f"Slot {slot} for key {key} availble")
-            return slot
-
-        elif self._items[slot][0] == key:
-            dprint(f"Slot {slot} for key {key} already used by {key}")
-            return slot
-
-        else:
-            existing_key = self._items[bucket][0]
-            dprint(f"Slot {slot} for key {key} already in use by {existing_key}")
-            raise SlotInUseError
-
     def __contains__(self, key):
         """Used by '{key} in {dict}', returns True/False"""
         dprint(f"Checking if {key} exists in dictionary")
@@ -53,18 +32,14 @@ class HomemadeHash:
         # eliminate incorrectly sized lists right away
         if len(self) != len(other):
             return False
-
         # now compare keys using set operations
         self_keys = set(self.keys())
         other_keys = set(other.keys())
-
         if len(self_keys ^ other_keys) != 0:
             return False
-
         for key in self_keys:
             if self[key] != other[key]:
                 return False
-
         return True
 
     def __getitem__(self, key):
@@ -75,6 +50,29 @@ class HomemadeHash:
             raise KeyError
         return self._items[slot][1]
 
+    def __setitem__(self, key, value):
+        """Adds k,v pair to a slot"""
+        slot = self._get_slot(key)
+        if self._items[slot] is None or self._items[slot][0] != key:
+            self._used_slots += 1
+        self._items[slot] = (key, value)
+
+    def _get_slot(self, key, attempt):
+        """Probes for slot value of a given key"""
+        slot = abs(hash(key) % len(self._items)) + attempt
+        if slot >= len(self._items):
+            slot -= len(self._items)
+        if self._items[slot] is None:
+            dprint(f"Slot {slot} for key {key} availble")
+            return slot
+        elif self._items[slot][0] == key:
+            dprint(f"Slot {slot} for key {key} already used by {key}")
+            return slot
+        else:
+            existing_key = self._items[bucket][0]
+            dprint(f"Slot {slot} for key {key} already in use by {existing_key}")
+            raise SlotInUseError
+
     def keys(self):
         """Return list of keys in dictionary"""
         return [item[0] for item in self._items if item is not None]
@@ -82,6 +80,9 @@ class HomemadeHash:
 
 class SlotInUseError(ValueError):
     """Error if hashed slot is already in use"""
+
+class NoAvailableSlotError(ValueError):
+    """Error if there are no more slots available"""
 
 if __name__ == "__main__":
     hh = HomemadeHash()
