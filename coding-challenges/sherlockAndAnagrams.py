@@ -23,7 +23,21 @@ def sherlockAndAnagrams(s):
     )
 
 
+def sherlockAndAnagramsOptimized(s):
+    substring_counts = defaultdict(int)
+    for i in range(len(s)):
+        for j in range(i+1, len(s)+1):
+            substr = s[i:j]
+            substring_counts[frozenset(Counter(substr).items())] += 1
+    return int(
+        sum(
+            math.factorial(count) / (math.factorial(count-2)*math.factorial(2))
+            for count in substring_counts.values() if count > 1
+        )
+    )
+
+
 if __name__ == '__main__':
     s = input()
-    result = sherlockAndAnagrams(s)
+    result = sherlockAndAnagramsOptimized(s)
     print(result)
