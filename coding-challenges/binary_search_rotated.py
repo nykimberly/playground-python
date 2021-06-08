@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+import random
+
+
+from collections import deque
+
 """
 Created on Mon Jun  7 13:49:18 2021
 
@@ -32,9 +38,31 @@ def binary_search_rotated(arr, key):
         elif arr[mid] > arr[high]:
             low = mid + 1
         else:
-            print("other condition")
+            return -1
     return -1
 
-v1 = [6, 7, 1, 2, 3, 4, 5]
-print("Key(3) found at: " + str(binary_search_rotated(v1, 3)))
-print("Key(6) found at: " + str(binary_search_rotated(v1, 6))) 
+def random_sorted_list():
+    return sorted({
+        random.randint(0, 100)
+        for _i in range(random.randint(10, 50))
+    })
+
+def random_rotate_list(alist):
+    alist = deque(alist)
+    alist.rotate(random.randint(0, random.randint(0, len(alist))))
+    return list(alist)
+    
+if __name__ == "__main__":
+    for _i in range(100):
+        arr = random_rotate_list(random_sorted_list())
+        key = random.choice(arr)
+        result = binary_search_rotated(arr, key)
+        expected = arr.index(key) if key in arr else -1
+        if result == expected:
+            continue
+        else:
+            print("answer:", result, "expected: ", expected)
+            print("input array", arr, "key", key)
+            quit()
+    print("Passed")
+            
