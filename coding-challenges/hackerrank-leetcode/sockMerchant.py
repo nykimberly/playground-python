@@ -21,6 +21,6 @@ def sockMerchant(ar):
 if __name__ == '__main__':
     n = int(input().strip())
     ar = list(map(int, input().rstrip().split()))
-    result = sockMerchant(n, ar)
+    result = sockMerchant(ar)
     print(result)
 

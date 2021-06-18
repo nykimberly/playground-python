@@ -18,6 +18,5 @@ class Solution(object):
                 minStart = i[count].start
                 ordered.insert(0, i[count])
             else:
-                
-            count += 1
+                count += 1
         return ordered
