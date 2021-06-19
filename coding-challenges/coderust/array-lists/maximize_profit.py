@@ -47,14 +47,29 @@ def optimal_buy_sell(l):
     return buy_sell_max[:2]
 
 
+def optimal_buy_sell_alt(stock_prices):
+    """This uses Kadane's algorithm"""
+    buy = stock_prices[0]  # we want to minimize this
+    sell = stock_prices[1]  # we want to maximize this
+    optimal_buy_sell = sell - buy  # we want to maximize this
+    for i in range(1, len(stock_prices) - 1):
+        buy_sell = stock_prices[i] - buy
+        if buy_sell > optimal_buy_sell:
+            optimal_buy_sell = buy_sell
+            sell = stock_prices[i]
+        if stock_prices[i] < buy:
+            buy = stock_prices[i]
+    return sell - optimal_buy_sell, sell
+
+
 if __name__ == "__main__":
     i = [8, 5, 12, 9, 19, 1]
-    o = optimal_buy_sell(i)
+    o = optimal_buy_sell_alt(i)
     e = (5, 19)
     assert o == e, f"Expected {e}, got {o}"
 
     i = [21, 12, 11, 9, 6, 3]
-    o = optimal_buy_sell(i)
+    o = optimal_buy_sell_alt(i)
     e = (12, 11)
     assert o == e, f"Expected {e}, got {o}"
 
