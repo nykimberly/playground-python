@@ -25,7 +25,6 @@ def find_kth_permutation(n, k):
     else:
         return -1
 
-
 if __name__ == "__main__":
     n, k = ["a", "b", "c"], 6
     e = ["abc", "acb", "bac", "bca", "cba", "cab"][k-1]
