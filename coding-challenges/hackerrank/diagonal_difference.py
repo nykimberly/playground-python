@@ -41,7 +41,7 @@ class TestDiagonalDifference(unittest.TestCase):
 
 class Solution:
     def __init__(self) -> None:
-        self.fns = [self.diagonal_difference]
+        self.fns = [self.diagonal_difference, self.diagonal_difference_less_space]
 
     def diagonal_difference(self, arr: typing.List[int]) -> None:
         l = len(arr)
@@ -52,3 +52,11 @@ class Solution:
             rd += arr[i][l - 1 - i]
         difference = ld - rd
         return difference * -1 if difference < 0 else difference
+
+    def diagonal_difference_less_space(self, arr: typing.List[int]) -> None:
+        n = len(arr)
+        diff = 0
+        for i in range(0, n):
+            diff += arr[i][i]
+            diff -= arr[i][n - 1 - i]
+        return abs(diff)
