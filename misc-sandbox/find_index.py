@@ -14,6 +14,44 @@ def find_index(elements, value):
     return -1
 
 
+def first_a(bac: str) -> int:
+    end = len(bac) - 1
+    l, r = 0, end
+    while l <= r:
+        m = (l + r) // 2
+        if bac[m] == "b":
+            l = m + 1
+        elif bac[m] == "c":
+            r = m - 1
+        else:
+            if (m == 0) or (m > 0 and bac[m-1] == "b"):
+                return m
+            else:
+                r = m - 1
+    return -1
+
+def last_a(bac: str) -> int:
+    end = len(bac) - 1
+    l, r = 0, end
+    while l <= r:
+        m = (l + r) // 2
+        if bac[m] == "b":
+            l = m + 1
+        elif bac[m] == "c":
+            r = m - 1
+        else:
+            if (m == end) or (m < end and bac[m+1] == "c"):
+                return m
+            else:
+                l = m + 1
+    return -1
+
+def count_as(bac: str) -> int:
+    return last_a(bac) - (first_a(bac) - 1)
+
+
 if __name__ == "__main__":
-    result = find_index([1, 2, 3, 4, 5, 10, 11, 13], 3)
-    print(result)
+    print(count_as("baaaaaac")) # 6
+    print(count_as("aaaa")) # 4
+    print(count_as("aaaaac")) # 5
+    print(count_as("baa")) # 2
