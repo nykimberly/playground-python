@@ -7,16 +7,7 @@ For example
 
 Sums are 1+5+9=15 and 2+5+9=17 absolute difference is 2
 """
-"""Given an array of integers, where all elements but one occur twice, find the unique element.
 
-lonelyinteger has the following parameter(s):
-int a[n]: an array of integers
-
-Returns
-int: the element that occurs only once
-
-Approach: Frequency map and return the one with count of 1
-"""
 
 import unittest
 import typing
