@@ -50,6 +50,6 @@ class Solution:
     @staticmethod
     def frequency_arrary(n: int, arr: typing.List[int]) -> None:
         freq_arr = [0] * 100
-        for i in range(n):
-            freq_arr[arr[i]] += 1
+        for val in arr:
+            freq_arr[val] += 1
         return freq_arr
